@@ -4222,6 +4222,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     version: function version() {
       return "2.0.0-beta.4";
     },
+    tableDataComp: {
+      get: function get() {
+        return this.data;
+      },
+      set: function set(value) {
+        this.$emit('input', value);
+      }
+    },
     useDetailRow: function useDetailRow() {
       if (!this.dataIsAvailable) return false;
 
@@ -4281,7 +4289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return {
         animation: 200,
         group: 'description',
-        disabled: false,
+        disabled: !__WEBPACK_IMPORTED_MODULE_8_vuedraggable___default.a,
         ghostClass: 'ghost'
       };
     }
@@ -10723,15 +10731,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 2), _vm._v(" "), _c('draggable', _vm._b({
     staticClass: "vuetable-body",
     attrs: {
-      "value": _vm.tableData,
       "tag": "tbody"
     },
-    on: {
-      "input": function($event) {
-        _vm.$emit('input', $event)
-      }
+    model: {
+      value: (_vm.tableDataComp),
+      callback: function($$v) {
+        _vm.tableDataComp = $$v
+      },
+      expression: "tableDataComp"
     }
-  }, 'draggable', _vm.dragOptions, false), [_vm._l((_vm.tableData), function(item, itemIndex) {
+  }, 'draggable', _vm.dragOptions, false), [_vm._l((_vm.tableDataComp), function(item, itemIndex) {
     return [_c('tr', {
       key: itemIndex,
       class: _vm.onRowClass(item, itemIndex),
