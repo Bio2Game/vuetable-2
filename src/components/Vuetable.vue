@@ -30,7 +30,7 @@
       <tfoot>
         <slot name="tableFooter" :fields="tableFields"></slot>
       </tfoot>
-      <tbody v-cloak class="vuetable-body">
+      <draggable v-cloak :value="tableData" @input="$emit('input', $event)" tag="tbody" class="vuetable-body" v-bind="dragOptions">
         <template v-for="(item, itemIndex) in tableData">
           <tr :item-index="itemIndex"
             :key="itemIndex"
@@ -106,7 +106,7 @@
             </template>
           </tr>
         </template>
-      </tbody>
+      </draggable>
       </table>
     </div>
   </div>
@@ -118,12 +118,15 @@ import VuetableRowHeader from './VuetableRowHeader'
 import VuetableColGroup from './VuetableColGroup'
 import CssSemanticUI from './VuetableCssSemanticUI.js'
 
+import draggable from 'vuedraggable'
+
 export default {
   name: 'Vuetable',
 
   components: {
     VuetableRowHeader,
     VuetableColGroup,
+    draggable
   },
 
   props: {
@@ -312,6 +315,10 @@ export default {
       default() {
         return 'vuetable:'
       }
+    },
+    draggable: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -326,7 +333,7 @@ export default {
       lastScrollPosition: 0,
       scrollBarWidth: '17px', //chrome default
       scrollVisible: false,
-      $_css: {}
+      $_css: {},
     }
   },
 
@@ -386,7 +393,15 @@ export default {
     },
     vuetable () {
       return this
-    }
+    },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: 'description',
+        disabled: false,
+        ghostClass: 'ghost',
+      }
+    },
   },
 
   created() {
@@ -836,7 +851,6 @@ export default {
 
     singleColumnSort (field) {
       if (this.sortOrder.length === 0) {
-        // this.clearSortOrder()
         this.addSortColumn(field, 'asc')
         return
       }
@@ -852,10 +866,6 @@ export default {
       }
       this.sortOrder[0].field = field.name
       this.sortOrder[0].sortField = field.sortField
-    },
-
-    clearSortOrder () {
-      this.sortOrder = []
     },
 
     hasFormatter (item) {
@@ -1166,8 +1176,8 @@ export default {
     overflow-x: hidden;
   }
   .vuetable-head-wrapper table.vuetable {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .vuetable-body-wrapper.fixed-header {
     position:relative;
@@ -1176,8 +1186,8 @@ export default {
   .vuetable-body-wrapper table.vuetable.fixed-header {
     border-top:none !important;
     margin-top:0 !important;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
   .vuetable-empty-result {
     text-align: center;
