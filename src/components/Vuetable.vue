@@ -341,7 +341,7 @@ export default {
     version: () => VERSION,
     tableDataComp: {
       get() {
-        return this.data
+        return this.tableData
       },
       set(value) {
         this.$emit('input', value)
