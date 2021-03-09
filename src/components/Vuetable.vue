@@ -116,7 +116,7 @@
 import VuetableRowHeader from './VuetableRowHeader'
 import VuetableColGroup from './VuetableColGroup'
 import CssSemanticUI from './VuetableCssSemanticUI.js'
-import orderBy from 'lodash/orderBy'
+import orderByLodash from 'lodash.orderby'
 
 import draggable from 'vuedraggable'
 
@@ -145,10 +145,6 @@ export default {
     dataManager: {
       type: Function,
       default: null
-    },
-    dataPath: {
-      type: String,
-      default: 'data'
     },
     paginationPath: {
       type: String,
@@ -526,37 +522,16 @@ export default {
 
       this.fireEvent('loading')
 
-      if(this.sortOrder.length && !this.draggable) {
-        data = orderBy(this.data, this.sortOrder[0].sortField, this.sortOrder[0].direction)
-      }
-
-      if (Array.isArray(data)) {
-        this.tableData = data
+      let sorted;
+      if(this.draggable) {
         this.$emit('input', data)
-        this.fireEvent('loaded')
-        return
+      } else if(this.sortOrder.length) {
+        sorted = orderByLodash(data, this.sortOrder[0].sortField, this.sortOrder[0].direction)
       }
 
-      this.tableData = this.getObjectValue(data, this.dataPath, null)
-      this.tablePagination = this.getObjectValue(data, this.paginationPath, null)
+      this.tableData = sorted || data
 
-      this.$nextTick( () => {
-        this.checkIfRowIdentifierExists()
-        this.updateHeader()
-        this.fireEvent('pagination-data', this.tablePagination)
-        this.fireEvent('loaded')
-      })
-    },
-
-    checkIfRowIdentifierExists () {
-      if (! this.dataIsAvailable) return
-
-      if ( ! this.hasRowIdentifier) {
-        this.warn('Invalid your data! Use "track-by" prop to specify.')
-        return false
-      }
-
-      return true
+      this.fireEvent('loaded')
     },
 
     makeTitle (str) {
@@ -601,30 +576,6 @@ export default {
 
     camelCase (str, delimiter = '_') {
       return str.split(delimiter).map( (item) => self.titleCase(item) ).join('')
-    },
-
-    loadSuccess (response) {
-      this.fireEvent('load-success', response)
-
-      let body = this.transform ? this.transform(response.data) : response.data
-
-      this.tableData = this.getObjectValue(body, this.dataPath, null)
-      this.tablePagination = this.getObjectValue(body, this.paginationPath, null)
-
-      if (this.tablePagination === null) {
-        this.warn('vuetable: pagination-path "' + this.paginationPath + '" not found. '
-          + 'It looks like the data returned from the server does not have pagination information '
-          + "or you may have set it incorrectly.\n"
-          + 'You can explicitly suppress this warning by setting pagination-path="".'
-        )
-      }
-
-      this.$nextTick( () => {
-        this.checkIfRowIdentifierExists()
-        this.updateHeader()
-        this.fireEvent('pagination-data', this.tablePagination)
-        this.fireEvent('loaded')
-      })
     },
 
     updateHeader () {
