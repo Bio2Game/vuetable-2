@@ -30,8 +30,8 @@
       <tfoot>
         <slot name="tableFooter" :fields="tableFields"></slot>
       </tfoot>
-      <draggable v-cloak :value="tableData" @input="$emit('input', $event)" tag="tbody" class="vuetable-body" v-bind="dragOptions">
-        <template v-for="(item, itemIndex) in tableData">
+      <draggable v-cloak v-model="tableDataComp" tag="tbody" class="vuetable-body" v-bind="dragOptions">
+        <template v-for="(item, itemIndex) in tableDataComp">
           <tr :item-index="itemIndex"
             :key="itemIndex"
             :class="onRowClass(item, itemIndex)"
@@ -293,6 +293,16 @@ export default {
   },
 
   computed: {
+
+    tableDataComp: {
+      get() {
+        return this.tableData
+      },
+      set(value) {
+        this.$emit('input', value)
+      }
+    },
+
     useDetailRow () {
       if ( ! this.dataIsAvailable) return false
 
