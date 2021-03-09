@@ -30,7 +30,7 @@
       <tfoot>
         <slot name="tableFooter" :fields="tableFields"></slot>
       </tfoot>
-      <draggable v-cloak v-model="tableData" tag="tbody" class="vuetable-body" v-bind="dragOptions">
+      <draggable v-cloak :value="tableData" @input="$emit('input', $event)" tag="tbody" class="vuetable-body" v-bind="dragOptions">
         <template v-for="(item, itemIndex) in tableData">
           <tr :item-index="itemIndex"
             :key="itemIndex"
@@ -113,7 +113,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import VuetableRowHeader from './VuetableRowHeader'
 import VuetableColGroup from './VuetableColGroup'
 import CssSemanticUI from './VuetableCssSemanticUI.js'
@@ -138,25 +137,6 @@ export default {
       type: Boolean,
       default: true
     },
-    apiUrl: {
-      type: String,
-      default: ''
-    },
-    httpMethod: {
-      type: String,
-      default: 'get',
-      validator: (value) => {
-        return ['get', 'post'].indexOf(value) > -1
-      }
-    },
-    reactiveApiUrl: {
-      type: Boolean,
-      default: true
-    },
-    apiMode: {
-      type: Boolean,
-      default: true
-    },
     data: {
       type: [Array, Object],
       default: null
@@ -173,32 +153,7 @@ export default {
       type: String,
       default: 'links.pagination'
     },
-    queryParams: {
-      type: [Object, Function],
-      default () {
-        return {
-          sort: 'sort',
-          page: 'page',
-          perPage: 'per_page'
-        }
-      }
-    },
-    appendParams: {
-      type: Object,
-      default () {
-        return {}
-      }
-    },
-    httpOptions: {
-      type: Object,
-      default () {
-        return {}
-      }
-    },
-    httpFetch: {
-      type: Function,
-      default: null
-    },
+
     perPage: {
         type: Number,
         default: 10
@@ -338,7 +293,6 @@ export default {
   },
 
   computed: {
-    version: () => VERSION,
     useDetailRow () {
       if ( ! this.dataIsAvailable) return false
 
@@ -381,12 +335,6 @@ export default {
       }
 
       return this.minRows - this.tableData.length
-    },
-    isApiMode () {
-      return this.apiMode
-    },
-    isDataMode () {
-      return ! this.apiMode
     },
     isFixedHeader () {
       return this.tableHeight != null
@@ -443,17 +391,8 @@ export default {
       }
     },
 
-    apiUrl (newVal, oldVal) {
-      if (this.reactiveApiUrl && newVal !== oldVal)
-        this.refresh()
-    },
-
     data (newVal, oldVal) {
       this.setData(newVal)
-    },
-
-    tableData(value) {
-      this.$emit('input', value)
     },
 
     tableHeight (newVal, oldVal) {
@@ -573,6 +512,7 @@ export default {
 
       if (Array.isArray(data)) {
         this.tableData = data
+        this.$emit('input', data)
         this.fireEvent('loaded')
         return
       }
@@ -643,34 +583,18 @@ export default {
       return str.split(delimiter).map( (item) => self.titleCase(item) ).join('')
     },
 
-    loadData (success = this.loadSuccess, failed = this.loadFailed) {
-      if (this.isDataMode) {
-        this.handleDataMode()
+    loadData () {
+      // data is array
+      if (this.data !== null && Array.isArray(this.data)) {
+        this.setData(this.data)
         return
       }
 
-      this.fireEvent('loading')
-
-      this.httpOptions['params'] = this.getAppendParams( this.getAllQueryParams() )
-
-      return this.fetch(this.apiUrl, this.httpOptions).then(
-          success,
-          failed
-      ).catch(() => failed())
-    },
-
-    fetch (apiUrl, httpOptions) {
-      if (this.httpFetch) {
-        return this.httpFetch(apiUrl, httpOptions)
-      }
-
-      if (this.httpMethod === 'get') {
-        return axios.get(apiUrl, httpOptions)
-      }
-      else { // Is a POST request
-        let params = httpOptions.params
-        delete httpOptions.params
-        return axios.post(apiUrl, params, httpOptions)
+      // data must be an object, check if dataManager is present
+      if (this.dataManager) {
+        this.callDataManager()
+      } else {
+        this.setData(this.data)
       }
     },
 
@@ -719,12 +643,6 @@ export default {
       })
     },
 
-    loadFailed (response) {
-      console.error('load-error', response)
-      this.fireEvent('load-error', response)
-      this.fireEvent('loaded')
-    },
-
     fireEvent () {
       if (arguments.length === 1) {
         return this.$emit(this.eventPrefix + arguments[0])
@@ -743,21 +661,6 @@ export default {
       }
     },
 
-    getAllQueryParams () {
-      let params = {}
-
-      if (typeof(this.queryParams) === 'function') {
-        params = this.queryParams(this.sortOrder, this.currentPage, this.perPage)
-        return typeof(params) === 'object' ? params : {}
-      }
-
-      params[this.queryParams.sort] = this.getSortParam()
-      params[this.queryParams.page] = this.currentPage
-      params[this.queryParams.perPage] = this.perPage
-
-      return params
-    },
-
     getSortParam () {
       if (!this.sortOrder || this.sortOrder.field == '') {
         return ''
@@ -772,14 +675,6 @@ export default {
 
     getDefaultSortParam () {
       return this.sortOrder.map( (item) => `${item.sortField}|${item.direction}`).join(',')
-    },
-
-    getAppendParams (params) {
-      for (let x in this.appendParams) {
-        params[x] = this.appendParams[x]
-      }
-
-      return params
     },
 
     isSortable (field) {
@@ -817,7 +712,7 @@ export default {
       }
 
       this.currentPage = this.firstPage    // reset page index
-      if (this.apiMode || this.dataManager) {
+      if (this.dataManager) {
         this.loadData()
       }
     },
@@ -1012,21 +907,6 @@ export default {
       this.sortOrder.forEach( (item) => {
         item.sortField = item.sortField || item.field
       })
-    },
-
-    handleDataMode () {
-      // data is array
-      if (this.data !== null && Array.isArray(this.data)) {
-        this.setData(this.data)
-        return
-      }
-
-      // data must be an object, check if dataManager is present
-      if (this.dataManager) {
-        this.callDataManager()
-      } else {
-        this.setData(this.data)
-      }
     },
 
     callDataManager () {
