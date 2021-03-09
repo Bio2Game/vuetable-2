@@ -3,7 +3,7 @@
     class="vuetable-th-component-checkbox"
   >
     <input type="checkbox"
-      @change="toggleAllCheckbox($event)"
+      @change="toggleAllCheckbox"
       :checked="isAllItemsInCurrentPageSelected()"
     >
   </th>

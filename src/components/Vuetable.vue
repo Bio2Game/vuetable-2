@@ -30,7 +30,7 @@
       <tfoot>
         <slot name="tableFooter" :fields="tableFields"></slot>
       </tfoot>
-      <draggable v-cloak v-model="tableDataComp" tag="tbody" class="vuetable-body" v-bind="dragOptions">
+      <draggable v-cloak v-model="tableDataComp" :draggable="false" tag="tbody" class="vuetable-body">
         <template v-for="(item, itemIndex) in tableDataComp">
           <tr :item-index="itemIndex"
             :key="itemIndex"
@@ -74,6 +74,37 @@
               </template>
             </template>
           </tr>
+          <template v-if="useDetailRow">
+            <transition :name="detailRowTransition" :key="itemIndex">
+              <tr v-if="isVisibleDetailRow(item[trackBy])"
+                @click="onDetailRowClick(item, itemIndex, $event)"
+                :class="onDetailRowClass(item, itemIndex)"
+              >
+                <td :colspan="countVisibleFields">
+                  <component :is="detailRowComponent"
+                    :row-data="item"
+                    :row-index="itemIndex"
+                    :options="detailRowOptions"
+                  ></component>
+                </td>
+              </tr>
+            </transition>
+          </template>
+        </template>
+        <template v-if="displayEmptyDataRow">
+          <tr>
+            <td :colspan="countVisibleFields"
+              class="vuetable-empty-result"
+              v-html="noDataTemplate"
+            ></td>
+          </tr>
+        </template>
+        <template v-if="lessThanMinRows">
+          <tr v-for="i in blankRows" class="blank-row" :key="i">
+            <template v-for="(field, fieldIndex) in tableFields">
+              <td v-if="field.visible" :key="fieldIndex">&nbsp;</td>
+            </template>
+          </tr>
         </template>
       </draggable>
       </table>
@@ -85,6 +116,7 @@
 import VuetableRowHeader from './VuetableRowHeader'
 import VuetableColGroup from './VuetableColGroup'
 import CssSemanticUI from './VuetableCssSemanticUI.js'
+import orderBy from 'lodash/orderBy'
 
 import draggable from 'vuedraggable'
 
@@ -327,6 +359,7 @@ export default {
         group: 'description',
         disabled: !draggable,
         ghostClass: 'ghost',
+        // handle: 'material-icons'
       }
     },
   },
@@ -342,7 +375,7 @@ export default {
 
   mounted () {
     if (this.loadOnStart) {
-      this.loadData()
+      this.setData(this.data)
     }
 
     if (this.isFixedHeader) {
@@ -366,7 +399,7 @@ export default {
     multiSort (newVal, oldVal) {
       if (newVal === false && this.sortOrder.length > 1) {
         this.sortOrder.splice(1);
-        this.loadData();
+        this.setData(this.data)
       }
     },
 
@@ -384,6 +417,10 @@ export default {
 
     perPage (newVal, oldVal) {
       this.reload();
+    },
+
+    draggable(newVal, oldVal) {
+      this.setData(this.data)
     }
 },
 
@@ -489,6 +526,10 @@ export default {
 
       this.fireEvent('loading')
 
+      if(this.sortOrder.length && !this.draggable) {
+        data = orderBy(this.data, this.sortOrder[0].sortField, this.sortOrder[0].direction)
+      }
+
       if (Array.isArray(data)) {
         this.tableData = data
         this.$emit('input', data)
@@ -562,21 +603,6 @@ export default {
       return str.split(delimiter).map( (item) => self.titleCase(item) ).join('')
     },
 
-    loadData () {
-      // data is array
-      if (this.data !== null && Array.isArray(this.data)) {
-        this.setData(this.data)
-        return
-      }
-
-      // data must be an object, check if dataManager is present
-      if (this.dataManager) {
-        this.callDataManager()
-      } else {
-        this.setData(this.data)
-      }
-    },
-
     loadSuccess (response) {
       this.fireEvent('load-success', response)
 
@@ -640,21 +666,6 @@ export default {
       }
     },
 
-    getSortParam () {
-      if (!this.sortOrder || this.sortOrder.field == '') {
-        return ''
-      }
-
-      if (typeof this.sortParams === 'function') {
-        return this.sortParams(this.sortOrder)
-      }
-
-      return this.getDefaultSortParam()
-    },
-
-    getDefaultSortParam () {
-      return this.sortOrder.map( (item) => `${item.sortField}|${item.direction}`).join(',')
-    },
 
     isSortable (field) {
       return field.sortField !== null
@@ -691,9 +702,8 @@ export default {
       }
 
       this.currentPage = this.firstPage    // reset page index
-      if (this.dataManager) {
-        this.loadData()
-      }
+
+      this.setData(this.data)
     },
 
     addSortColumn (field, direction) {
@@ -799,21 +809,21 @@ export default {
     gotoPreviousPage () {
       if (this.currentPage > this.firstPage) {
         this.currentPage--
-        this.loadData()
+        this.setData(this.data)
       }
     },
 
     gotoNextPage () {
       if (this.currentPage < this.tablePagination.last_page) {
         this.currentPage++
-        this.loadData()
+        this.setData(this.data)
       }
     },
 
     gotoPage (page) {
       if (page != this.currentPage && (page >= this.firstPage && page <= this.tablePagination.last_page)) {
         this.currentPage = page
-        this.loadData()
+        this.setData(this.data)
       }
     },
 
@@ -886,16 +896,6 @@ export default {
       this.sortOrder.forEach( (item) => {
         item.sortField = item.sortField || item.field
       })
-    },
-
-    callDataManager () {
-      const result = this.dataManager(this.sortOrder, this.makePagination())
-
-      if (this.isPromiseObject(result)) {
-        result.then(data => this.setData(data))
-      } else {
-        this.setData(result)
-      }
     },
 
     isObject (unknown) {
@@ -1007,12 +1007,12 @@ export default {
     },
 
     reload () {
-      return this.loadData()
+      return this.setData(this.data)
     },
 
     refresh () {
       this.currentPage = this.firstPage
-      return this.loadData()
+      return this.setData(this.data)
     },
 
     resetData () {
