@@ -8969,48 +8969,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       })]] : _vm._e()]
-    })], 2), _vm._v(" "), (_vm.useDetailRow) ? [_c('transition', {
-      key: itemIndex,
-      attrs: {
-        "name": _vm.detailRowTransition
-      }
-    }, [(_vm.isVisibleDetailRow(item[_vm.trackBy])) ? _c('tr', {
-      class: _vm.onDetailRowClass(item, itemIndex),
-      on: {
-        "click": function($event) {
-          _vm.onDetailRowClick(item, itemIndex, $event)
-        }
-      }
-    }, [_c('td', {
-      attrs: {
-        "colspan": _vm.countVisibleFields
-      }
-    }, [_c(_vm.detailRowComponent, {
-      tag: "component",
-      attrs: {
-        "row-data": item,
-        "row-index": itemIndex,
-        "options": _vm.detailRowOptions
-      }
-    })], 1)]) : _vm._e()])] : _vm._e()]
-  }), _vm._v(" "), (_vm.displayEmptyDataRow) ? [_c('tr', [_c('td', {
-    staticClass: "vuetable-empty-result",
-    attrs: {
-      "colspan": _vm.countVisibleFields
-    },
-    domProps: {
-      "innerHTML": _vm._s(_vm.noDataTemplate)
-    }
-  })])] : _vm._e(), _vm._v(" "), (_vm.lessThanMinRows) ? _vm._l((_vm.blankRows), function(i) {
-    return _c('tr', {
-      key: i,
-      staticClass: "blank-row"
-    }, [_vm._l((_vm.tableFields), function(field, fieldIndex) {
-      return [(field.visible) ? _c('td', {
-        key: fieldIndex
-      }, [_vm._v(" ")]) : _vm._e()]
-    })], 2)
-  }) : _vm._e()], 2)], 1)])])
+    })], 2)]
+  })], 2)], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

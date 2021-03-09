@@ -74,37 +74,6 @@
               </template>
             </template>
           </tr>
-          <template v-if="useDetailRow">
-            <transition :name="detailRowTransition" :key="itemIndex">
-              <tr v-if="isVisibleDetailRow(item[trackBy])"
-                @click="onDetailRowClick(item, itemIndex, $event)"
-                :class="onDetailRowClass(item, itemIndex)"
-              >
-                <td :colspan="countVisibleFields">
-                  <component :is="detailRowComponent"
-                    :row-data="item"
-                    :row-index="itemIndex"
-                    :options="detailRowOptions"
-                  ></component>
-                </td>
-              </tr>
-            </transition>
-          </template>
-        </template>
-        <template v-if="displayEmptyDataRow">
-          <tr>
-            <td :colspan="countVisibleFields"
-              class="vuetable-empty-result"
-              v-html="noDataTemplate"
-            ></td>
-          </tr>
-        </template>
-        <template v-if="lessThanMinRows">
-          <tr v-for="i in blankRows" class="blank-row" :key="i">
-            <template v-for="(field, fieldIndex) in tableFields">
-              <td v-if="field.visible" :key="fieldIndex">&nbsp;</td>
-            </template>
-          </tr>
         </template>
       </draggable>
       </table>
