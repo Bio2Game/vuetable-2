@@ -87,10 +87,9 @@ export default {
 
     sortClass (field) {
       let cls = ''
-      let i = this.currentSortOrderPosition(field)
 
-      if (i !== false) {
-        cls = (this.sortOrder[i].direction == 'asc') ? this.css.ascendingClass : this.css.descendingClass
+      if (this.currentSortOrder(field)) {
+        cls = (this.sortOrder.direction == 'asc') ? this.css.ascendingClass : this.css.descendingClass
       }
 
       return cls;
@@ -98,47 +97,31 @@ export default {
 
     sortIcon (field) {
       let cls = this.css.sortableIcon
-      let i = this.currentSortOrderPosition(field)
 
-      if (i !== false) {
-        cls = (this.sortOrder[i].direction == 'asc') ? this.css.ascendingIcon : this.css.descendingIcon
+      if (this.currentSortOrder(field)) {
+        cls = this.sortOrder.direction === 'asc' ? this.css.ascendingIcon : this.css.descendingIcon
       }
 
       return cls;
-    },
-
-    isInCurrentSortGroup (field) {
-      return this.currentSortOrderPosition(field) !== false;
     },
 
     hasSortableIcon (field) {
       return this.vuetable.isSortable(field) && this.css.sortableIcon != ''
     },
 
-    currentSortOrderPosition (field) {
-      if ( ! this.vuetable.isSortable(field)) {
+    currentSortOrder (field) {
+      if (!this.vuetable.isSortable(field)) {
         return false
       }
 
-      for (let i = 0; i < this.sortOrder.length; i++) {
-        if (this.fieldIsInSortOrderPosition(field, i)) {
-          return i;
-        }
-      }
-
-      return false;
-    },
-
-    fieldIsInSortOrderPosition (field, i) {
-      return this.sortOrder[i].field === field.name && this.sortOrder[i].sortField === field.sortField
+      return this.sortOrder && this.sortOrder.field === field.name && this.sortOrder.sortField === field.sortField
     },
 
     renderTitle (field) {
       let title = this.getTitle(field)
 
-      if (title.length > 0 && this.isInCurrentSortGroup(field) || this.hasSortableIcon(field)) {
-        let style = `opacity:${this.sortIconOpacity(field)};position:relative;float:right`
-        return title + ' ' + this.renderIconTag(['sort-icon', this.sortIcon(field)], `style="${style}"`)
+      if (title.length > 0 && this.currentSortOrder(field) || this.hasSortableIcon(field)) {
+        return title + ' ' + `<i class="material-icons">${this.sortIcon(field)}</i>`
       }
 
       return title
@@ -150,39 +133,6 @@ export default {
       return typeof(field.title) === 'undefined'
         ? field.name.replace('.', ' ')
         : field.title
-    },
-
-    sortIconOpacity (field) {
-      /*
-       * fields with stronger precedence have darker color
-       *
-       * if there are few fields, we go down by 0.3
-       * ex. 2 fields are selected: 1.0, 0.7
-       *
-       * if there are more we go down evenly on the given spectrum
-       * ex. 6 fields are selected: 1.0, 0.86, 0.72, 0.58, 0.44, 0.3
-       */
-      let max = 1.0,
-          min = 0.3,
-          step = 0.3
-
-      let count = this.sortOrder.length;
-      let current = this.currentSortOrderPosition(field)
-
-
-      if(max - count * step < min) {
-        step = (max - min) / (count-1)
-      }
-
-      let opacity = max - current * step
-
-      return opacity
-    },
-
-    renderIconTag (classes, options = '') {
-      return typeof(this.css.renderIcon) === 'undefined'
-        ? `<i class="${classes.join(' ')}" ${options}></i>`
-        : this.css.renderIcon(classes, options)
     },
   }
 }

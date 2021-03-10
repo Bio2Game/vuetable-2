@@ -31,8 +31,8 @@ export default {
   },
   created () {
     this.$on('vuetable:pagination-data', (tablePagination) => {
-        this.setPaginationData(tablePagination)
-      })
+      this.setPaginationData(tablePagination)
+    })
   },
 }
 </script>

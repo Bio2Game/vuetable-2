@@ -45,7 +45,7 @@
                   :row-data="item" :row-index="itemIndex" :row-field="field"
                   :vuetable="vuetable"
                   :class="bodyClass('vuetable-component', field)"
-                  :style="{width: field.width}"
+                  :style="{ width: field.width }"
                   @vuetable:field-event="onFieldEvent"
                 ></component>
               </template>
@@ -65,8 +65,6 @@
                   :style="{width: field.width}"
                   v-html="renderNormalField(field, item)"
                   @click="onCellClicked(item, itemIndex, field, $event)"
-                  @dblclick="onCellDoubleClicked(item, itemIndex, field, $event)"
-                  @contextmenu="onCellRightClicked(item, itemIndex, field, $event)"
                 ></td>
               </template>
             </template>
@@ -119,7 +117,6 @@ export default {
       type: [Array, Object],
       default: null
     },
-
     perPage: {
         type: Number,
         default: 10
@@ -172,12 +169,6 @@ export default {
         return 'vuetable-field-'
       }
     },
-    eventPrefix: {
-      type: String,
-      default() {
-        return 'vuetable:'
-      }
-    },
     draggable: {
       type: Boolean,
       default: true
@@ -192,7 +183,6 @@ export default {
       tablePagination: null,
       currentPage: 1,
       selectedTo: [],
-      visibleDetailRows: [],
       lastScrollPosition: 0,
       scrollBarWidth: '17px', //chrome default
       scrollVisible: false,
@@ -201,7 +191,6 @@ export default {
   },
 
   computed: {
-
     tableDataComp: {
       get() {
         return this.tableData
@@ -458,17 +447,6 @@ export default {
       return str.split(delimiter).map( (item) => self.titleCase(item) ).join('')
     },
 
-    updateHeader () {
-      // $nextTick doesn't seem to work in all cases. This might be because
-      // $nextTick is finished before the transition element (just my guess)
-      //
-      // the scrollHeight value does not yet changed, causing scrollVisible
-      // to remain "true", therefore, the header gutter never gets updated
-      // to reflect the display of scrollbar in the table body.
-      // setTimeout 80ms seems to work in this case.
-      setTimeout(this.checkScrollbarVisibility, 80)
-    },
-
     checkScrollbarVisibility () {
       this.$nextTick( () => {
         let elem = this.$el.getElementsByClassName('vuetable-body-wrapper')[0]
@@ -481,13 +459,11 @@ export default {
 
     fireEvent () {
       if (arguments.length === 1) {
-        return this.$emit(this.eventPrefix + arguments[0])
+        return this.$emit(arguments[0])
       }
 
       if (arguments.length > 1) {
-        let args = Array.from(arguments)
-        args[0] = this.eventPrefix + args[0]
-        return this.$emit.apply(this, args)
+        return this.$emit.apply(this, Array.from(arguments))
       }
     },
 
@@ -597,35 +573,6 @@ export default {
       }
     },
 
-    isVisibleDetailRow (rowId) {
-      return this.visibleDetailRows.indexOf( rowId ) >= 0
-    },
-
-    showDetailRow (rowId) {
-      if (!this.isVisibleDetailRow(rowId)) {
-        this.visibleDetailRows.push(rowId)
-      }
-      this.checkScrollbarVisibility()
-    },
-
-    hideDetailRow (rowId) {
-      if (this.isVisibleDetailRow(rowId)) {
-        this.visibleDetailRows.splice(
-          this.visibleDetailRows.indexOf(rowId),
-          1
-        )
-        this.updateHeader()
-      }
-    },
-
-    toggleDetailRow (rowId) {
-      if (this.isVisibleDetailRow(rowId)) {
-        this.hideDetailRow(rowId)
-      } else {
-        this.showDetailRow(rowId)
-      }
-    },
-
     showField (index) {
       if (index < 0 || index > this.tableFields.length) return
 
@@ -688,20 +635,8 @@ export default {
       return true
     },
 
-    onDetailRowClick (dataItem, dataIndex, event) {
-      this.fireEvent('detail-row-clicked', { data: dataItem, index: dataIndex, event: event })
-    },
-
     onCellClicked (dataItem, dataIndex, field, event) {
       this.fireEvent('cell-clicked', { data: dataItem, index: dataIndex, field: field, event: event })
-    },
-
-    onCellDoubleClicked (dataItem, dataIndex, field, event) {
-      this.fireEvent('cell-dblclicked', { data: dataItem, index: dataIndex, field: field, event: event })
-    },
-
-    onCellRightClicked (dataItem, dataIndex, field, event) {
-      this.fireEvent('cell-rightclicked', { data: dataItem, index: dataIndex, field: field, event: event })
     },
 
     onFieldEvent (type, payload) {
@@ -770,7 +705,7 @@ export default {
       this.tablePagination = null
       this.fireEvent('data-reset')
     },
-  }, // end: methods
+  },
 }
 </script>
 

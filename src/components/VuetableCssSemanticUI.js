@@ -5,12 +5,13 @@ export default {
     tableBodyClass: 'fixed',
     tableClass: 'ui blue selectable unstackable celled table',
     loadingClass: 'loading',
-    ascendingIcon: 'blue chevron up icon',
-    descendingIcon: 'blue chevron down icon',
     ascendingClass: 'sorted-asc',
     descendingClass: 'sorted-desc',
-    sortableIcon: 'grey sort icon',
-    handleIcon: 'grey sidebar icon',
+
+    ascendingIcon: 'expand_more',
+    descendingIcon: 'expand_less',
+    sortableIcon: 'unfold_more',
+    handleIcon: 'drag_handle',
   },
 
   pagination: {

@@ -871,12 +871,13 @@ module.exports = g;
     tableBodyClass: 'fixed',
     tableClass: 'ui blue selectable unstackable celled table',
     loadingClass: 'loading',
-    ascendingIcon: 'blue chevron up icon',
-    descendingIcon: 'blue chevron down icon',
     ascendingClass: 'sorted-asc',
     descendingClass: 'sorted-desc',
-    sortableIcon: 'grey sort icon',
-    handleIcon: 'grey sidebar icon'
+
+    ascendingIcon: 'expand_more',
+    descendingIcon: 'expand_less',
+    sortableIcon: 'unfold_more',
+    handleIcon: 'drag_handle'
   },
 
   pagination: {
@@ -2068,7 +2069,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: [Array, Object],
       default: null
     },
-
     perPage: {
       type: Number,
       default: 10
@@ -2121,12 +2121,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return 'vuetable-field-';
       }
     },
-    eventPrefix: {
-      type: String,
-      default: function _default() {
-        return 'vuetable:';
-      }
-    },
     draggable: {
       type: Boolean,
       default: true
@@ -2141,7 +2135,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tablePagination: null,
       currentPage: 1,
       selectedTo: [],
-      visibleDetailRows: [],
       lastScrollPosition: 0,
       scrollBarWidth: '17px',
       scrollVisible: false,
@@ -2151,7 +2144,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   computed: {
-
     tableDataComp: {
       get: function get() {
         return this.tableData;
@@ -2388,9 +2380,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return self.titleCase(item);
       }).join('');
     },
-    updateHeader: function updateHeader() {
-      setTimeout(this.checkScrollbarVisibility, 80);
-    },
     checkScrollbarVisibility: function checkScrollbarVisibility() {
       var _this3 = this;
 
@@ -2404,13 +2393,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     fireEvent: function fireEvent() {
       if (arguments.length === 1) {
-        return this.$emit(this.eventPrefix + arguments[0]);
+        return this.$emit(arguments[0]);
       }
 
       if (arguments.length > 1) {
-        var args = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_array_from___default()(arguments);
-        args[0] = this.eventPrefix + args[0];
-        return this.$emit.apply(this, args);
+        return this.$emit.apply(this, __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_array_from___default()(arguments));
       }
     },
     isSortable: function isSortable(field) {
@@ -2504,28 +2491,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.setData(this.data);
       }
     },
-    isVisibleDetailRow: function isVisibleDetailRow(rowId) {
-      return this.visibleDetailRows.indexOf(rowId) >= 0;
-    },
-    showDetailRow: function showDetailRow(rowId) {
-      if (!this.isVisibleDetailRow(rowId)) {
-        this.visibleDetailRows.push(rowId);
-      }
-      this.checkScrollbarVisibility();
-    },
-    hideDetailRow: function hideDetailRow(rowId) {
-      if (this.isVisibleDetailRow(rowId)) {
-        this.visibleDetailRows.splice(this.visibleDetailRows.indexOf(rowId), 1);
-        this.updateHeader();
-      }
-    },
-    toggleDetailRow: function toggleDetailRow(rowId) {
-      if (this.isVisibleDetailRow(rowId)) {
-        this.hideDetailRow(rowId);
-      } else {
-        this.showDetailRow(rowId);
-      }
-    },
     showField: function showField(index) {
       if (index < 0 || index > this.tableFields.length) return;
 
@@ -2587,17 +2552,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.fireEvent('row-clicked', { data: dataItem, index: dataIndex, event: event });
       return true;
     },
-    onDetailRowClick: function onDetailRowClick(dataItem, dataIndex, event) {
-      this.fireEvent('detail-row-clicked', { data: dataItem, index: dataIndex, event: event });
-    },
     onCellClicked: function onCellClicked(dataItem, dataIndex, field, event) {
       this.fireEvent('cell-clicked', { data: dataItem, index: dataIndex, field: field, event: event });
-    },
-    onCellDoubleClicked: function onCellDoubleClicked(dataItem, dataIndex, field, event) {
-      this.fireEvent('cell-dblclicked', { data: dataItem, index: dataIndex, field: field, event: event });
-    },
-    onCellRightClicked: function onCellRightClicked(dataItem, dataIndex, field, event) {
-      this.fireEvent('cell-rightclicked', { data: dataItem, index: dataIndex, field: field, event: event });
     },
     onFieldEvent: function onFieldEvent(type, payload) {
       this.fireEvent('field-event', type, payload, this);
@@ -2657,7 +2613,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.tablePagination = null;
       this.fireEvent('data-reset');
     }
-  } });
+  }
+});
 
 /***/ }),
 /* 64 */
@@ -2802,14 +2759,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     css: function css() {
       return this.vuetable.$_css;
-    }
-  },
-
-  methods: {
-    renderIconTag: function renderIconTag(classes) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      return typeof this.css.renderIcon === 'undefined' ? '<i class="' + classes.join(' ') + '" ' + options + '></i>' : this.css.renderIcon(classes, options);
     }
   }
 });
@@ -3035,7 +2984,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      eventPrefix: 'vuetable-pagination:',
       tablePagination: null,
       $_css: {}
     };
@@ -3078,7 +3026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$_css = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, __WEBPACK_IMPORTED_MODULE_1__VuetableCssSemanticUI_js__["a" /* default */].pagination, this.css);
     },
     loadPage: function loadPage(page) {
-      this.$emit(this.eventPrefix + 'change-page', page);
+      this.$emit('vuetable-pagination:change-page', page);
     },
     isCurrentPage: function isCurrentPage(page) {
       return page === this.tablePagination.current_page;
@@ -3147,52 +3095,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     sortClass: function sortClass(field) {
       var cls = '';
-      var i = this.currentSortOrderPosition(field);
 
-      if (i !== false) {
-        cls = this.sortOrder[i].direction == 'asc' ? this.css.ascendingClass : this.css.descendingClass;
+      if (this.currentSortOrder(field)) {
+        cls = this.sortOrder.direction == 'asc' ? this.css.ascendingClass : this.css.descendingClass;
       }
 
       return cls;
     },
     sortIcon: function sortIcon(field) {
       var cls = this.css.sortableIcon;
-      var i = this.currentSortOrderPosition(field);
 
-      if (i !== false) {
-        cls = this.sortOrder[i].direction == 'asc' ? this.css.ascendingIcon : this.css.descendingIcon;
+      if (this.currentSortOrder(field)) {
+        cls = this.sortOrder.direction === 'asc' ? this.css.ascendingIcon : this.css.descendingIcon;
       }
 
       return cls;
     },
-    isInCurrentSortGroup: function isInCurrentSortGroup(field) {
-      return this.currentSortOrderPosition(field) !== false;
-    },
     hasSortableIcon: function hasSortableIcon(field) {
       return this.vuetable.isSortable(field) && this.css.sortableIcon != '';
     },
-    currentSortOrderPosition: function currentSortOrderPosition(field) {
+    currentSortOrder: function currentSortOrder(field) {
       if (!this.vuetable.isSortable(field)) {
         return false;
       }
 
-      for (var i = 0; i < this.sortOrder.length; i++) {
-        if (this.fieldIsInSortOrderPosition(field, i)) {
-          return i;
-        }
-      }
-
-      return false;
-    },
-    fieldIsInSortOrderPosition: function fieldIsInSortOrderPosition(field, i) {
-      return this.sortOrder[i].field === field.name && this.sortOrder[i].sortField === field.sortField;
+      return this.sortOrder && this.sortOrder.field === field.name && this.sortOrder.sortField === field.sortField;
     },
     renderTitle: function renderTitle(field) {
       var title = this.getTitle(field);
 
-      if (title.length > 0 && this.isInCurrentSortGroup(field) || this.hasSortableIcon(field)) {
-        var style = 'opacity:' + this.sortIconOpacity(field) + ';position:relative;float:right';
-        return title + ' ' + this.renderIconTag(['sort-icon', this.sortIcon(field)], 'style="' + style + '"');
+      if (title.length > 0 && this.currentSortOrder(field) || this.hasSortableIcon(field)) {
+        return title + ' ' + ('<i class="material-icons">' + this.sortIcon(field) + '</i>');
       }
 
       return title;
@@ -3201,27 +3134,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (typeof field.title === 'function') return field.title();
 
       return typeof field.title === 'undefined' ? field.name.replace('.', ' ') : field.title;
-    },
-    sortIconOpacity: function sortIconOpacity(field) {
-      var max = 1.0,
-          min = 0.3,
-          step = 0.3;
-
-      var count = this.sortOrder.length;
-      var current = this.currentSortOrderPosition(field);
-
-      if (max - count * step < min) {
-        step = (max - min) / (count - 1);
-      }
-
-      var opacity = max - current * step;
-
-      return opacity;
-    },
-    renderIconTag: function renderIconTag(classes) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      return typeof this.css.renderIcon === 'undefined' ? '<i class="' + classes.join(' ') + '" ' + options + '></i>' : this.css.renderIcon(classes, options);
     }
   }
 });
@@ -11137,12 +11049,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         on: {
           "click": function($event) {
             _vm.onCellClicked(item, itemIndex, field, $event)
-          },
-          "dblclick": function($event) {
-            _vm.onCellDoubleClicked(item, itemIndex, field, $event)
-          },
-          "contextmenu": function($event) {
-            _vm.onCellRightClicked(item, itemIndex, field, $event)
           }
         }
       })]] : _vm._e()]
@@ -11311,11 +11217,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "innerHTML": _vm._s(_vm.title)
     }
   }) : _c('td', {
-    staticClass: "vuetable-td-component-handle",
-    domProps: {
-      "innerHTML": _vm._s(_vm.renderIconTag(['handle-icon', _vm.css.handleIcon]))
-    }
-  })
+    staticClass: "vuetable-td-component-handle"
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v(_vm._s(_vm.css.handleIcon))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

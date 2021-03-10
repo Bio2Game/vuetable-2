@@ -22,7 +22,6 @@ export default {
   },
   data: function() {
     return {
-      eventPrefix: 'vuetable-pagination:',
       tablePagination: null,
       $_css: {}
     }
@@ -72,7 +71,7 @@ export default {
       this.$_css = {...CssSemanticUI.pagination, ...this.css}
     },
     loadPage (page) {
-      this.$emit(this.eventPrefix + 'change-page', page)
+      this.$emit('vuetable-pagination:change-page', page)
     },
     isCurrentPage (page) {
       return page === this.tablePagination.current_page
