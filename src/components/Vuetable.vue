@@ -124,10 +124,6 @@ export default {
         type: Number,
         default: 10
     },
-    sortOrder: {
-      type: Object,
-      default: () => null
-    },
     tableHeight: {
       type: String,
       default: null
@@ -137,6 +133,10 @@ export default {
       default: ''
     },
     trackBy: {
+      type: String,
+      default: 'id'
+    },
+    defaultSortBy: {
       type: String,
       default: 'id'
     },
@@ -186,6 +186,7 @@ export default {
 
   data () {
     return {
+      sortOrder: null,
       tableFields: [],
       tableData: null,
       tablePagination: null,
@@ -260,7 +261,7 @@ export default {
   created() {
     this.mergeCss()
     this.normalizeFields()
-    this.normalizeSortOrder()
+    this.setupSortOrder()
     this.$nextTick( () => {
       this.fireEvent('initialized', this.tableFields)
     })
@@ -305,7 +306,12 @@ export default {
 
     draggable(newVal, oldVal) {
       this.setData(this.data)
-    }
+    },
+
+    defaultSortBy (newVal, oldVal) {
+      const field = this.fields.find(field => field.sortField === newVal)
+      this.sortData(field)
+    },
 },
 
   methods: {
@@ -656,10 +662,9 @@ export default {
       }
     },
 
-    normalizeSortOrder () {
-      if (this.sortOrder && !this.sortOrder.sortField) {
-        this.sortOrder.sortField = this.sortOrder.field
-      }
+    setupSortOrder () {
+      const field = this.fields.find(field => field.sortField === this.defaultSortBy)
+      this.sortData(field)
     },
 
     isObject (unknown) {
