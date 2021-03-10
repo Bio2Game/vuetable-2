@@ -2073,12 +2073,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Number,
       default: 10
     },
-    sortOrder: {
-      type: Object,
-      default: function _default() {
-        return null;
-      }
-    },
     tableHeight: {
       type: String,
       default: null
@@ -2088,6 +2082,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       default: ''
     },
     trackBy: {
+      type: String,
+      default: 'id'
+    },
+    defaultSortBy: {
       type: String,
       default: 'id'
     },
@@ -2137,6 +2135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
+      sortOrder: null,
       tableFields: [],
       tableData: null,
       tablePagination: null,
@@ -2214,7 +2213,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     this.mergeCss();
     this.normalizeFields();
-    this.normalizeSortOrder();
+    this.setupSortOrder();
     this.$nextTick(function () {
       _this.fireEvent('initialized', _this.tableFields);
     });
@@ -2254,6 +2253,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     draggable: function draggable(newVal, oldVal) {
       this.setData(this.data);
+    },
+    defaultSortBy: function defaultSortBy(newVal, oldVal) {
+      var field = this.fields.find(function (field) {
+        return field.sortField === newVal;
+      });
+      this.sortData(field);
     }
   },
 
@@ -2557,10 +2562,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'to': Math.min(currentPage * perPage, total)
       };
     },
-    normalizeSortOrder: function normalizeSortOrder() {
-      if (this.sortOrder && !this.sortOrder.sortField) {
-        this.sortOrder.sortField = this.sortOrder.field;
-      }
+    setupSortOrder: function setupSortOrder() {
+      var _this4 = this;
+
+      var field = this.fields.find(function (field) {
+        return field.sortField === _this4.defaultSortBy;
+      });
+      this.sortData(field);
     },
     isObject: function isObject(unknown) {
       return (typeof unknown === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(unknown)) === "object" && unknown !== null;
@@ -2612,17 +2620,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.fireEvent('checkbox-toggled', isChecked, fieldName);
     },
     onCheckboxToggledAll: function onCheckboxToggledAll(isChecked) {
-      var _this4 = this;
+      var _this5 = this;
 
       var idColumn = this.trackBy;
 
       if (isChecked) {
         this.tableData.forEach(function (dataItem) {
-          _this4.selectId(dataItem[idColumn]);
+          _this5.selectId(dataItem[idColumn]);
         });
       } else {
         this.tableData.forEach(function (dataItem) {
-          _this4.unselectId(dataItem[idColumn]);
+          _this5.unselectId(dataItem[idColumn]);
         });
       }
 
