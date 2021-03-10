@@ -2064,77 +2064,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Array,
       required: true
     },
-    loadOnStart: {
-      type: Boolean,
-      default: true
-    },
     data: {
       type: [Array, Object],
       default: null
-    },
-    dataManager: {
-      type: Function,
-      default: null
-    },
-    paginationPath: {
-      type: String,
-      default: 'links.pagination'
     },
 
     perPage: {
       type: Number,
       default: 10
     },
-
-    initialPage: {
-      type: Number,
-      default: 1
-    },
-
-    firstPage: {
-      type: Number,
-      default: 1
-    },
     sortOrder: {
-      type: Array,
+      type: Object,
       default: function _default() {
-        return [];
+        return null;
       }
-    },
-    multiSort: {
-      type: Boolean,
-      default: false
     },
     tableHeight: {
       type: String,
       default: null
     },
-
-    multiSortKey: {
-      type: String,
-      default: 'alt'
-    },
     rowClass: {
       type: [String, Function],
       default: ''
-    },
-    detailRowComponent: {
-      type: [String, Object],
-      default: ''
-    },
-    detailRowTransition: {
-      type: String,
-      default: ''
-    },
-    detailRowClass: {
-      type: [String, Function],
-      default: 'vuetable-detail-row'
-    },
-    detailRowOptions: {
-      type: Object,
-      default: function _default() {
-        return {};
-      }
     },
     trackBy: {
       type: String,
@@ -2150,19 +2101,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Number,
       default: 0
     },
-    silent: {
-      type: Boolean,
-      default: false
-    },
     noDataTemplate: {
       type: String,
       default: function _default() {
         return 'No Data Available';
       }
-    },
-    showSortIcons: {
-      type: Boolean,
-      default: true
     },
     headerRows: {
       type: Array,
@@ -2171,10 +2114,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     transform: {
-      type: Function,
-      default: null
-    },
-    sortParams: {
       type: Function,
       default: null
     },
@@ -2192,7 +2131,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     draggable: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 
@@ -2201,7 +2140,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tableFields: [],
       tableData: null,
       tablePagination: null,
-      currentPage: this.initialPage,
+      currentPage: 1,
       selectedTo: [],
       visibleDetailRows: [],
       lastScrollPosition: 0,
@@ -2220,14 +2159,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       },
       set: function set(value) {
         this.$emit('input', value);
+        this.setData(value);
       }
     },
 
-    useDetailRow: function useDetailRow() {
-      if (!this.dataIsAvailable) return false;
-
-      return this.detailRowComponent !== '';
-    },
     dataIsAvailable: function dataIsAvailable() {
       if (!this.tableData) return false;
 
@@ -2271,14 +2206,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     vuetable: function vuetable() {
       return this;
-    },
-    dragOptions: function dragOptions() {
-      return {
-        animation: 200,
-        group: 'description',
-        disabled: !__WEBPACK_IMPORTED_MODULE_8_vuedraggable___default.a,
-        ghostClass: 'ghost'
-      };
     }
   },
 
@@ -2293,9 +2220,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
   },
   mounted: function mounted() {
-    if (this.loadOnStart) {
-      this.setData(this.data);
-    }
+    this.setData(this.data);
 
     if (this.isFixedHeader) {
       this.scrollBarWidth = this.getScrollBarWidth() + 'px';
@@ -2315,12 +2240,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   watch: {
-    multiSort: function multiSort(newVal, oldVal) {
-      if (newVal === false && this.sortOrder.length > 1) {
-        this.sortOrder.splice(1);
-        this.setData(this.data);
-      }
-    },
     data: function data(newVal, oldVal) {
       this.setData(newVal);
     },
@@ -2378,10 +2297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     normalizeFields: function normalizeFields() {
       var _this2 = this;
 
-      if (typeof this.fields === 'undefined') {
-        this.warn('You need to provide "fields" prop.');
-        return;
-      }
+      if (typeof this.fields === 'undefined') return;
 
       this.tableFields = [];
 
@@ -2428,18 +2344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     setData: function setData(data) {
       if (data === null || typeof data === 'undefined') return;
 
-      this.fireEvent('loading');
-
-      var sorted = void 0;
-      if (this.draggable) {
-        this.$emit('input', data);
-      } else if (this.sortOrder.length) {
-        sorted = __WEBPACK_IMPORTED_MODULE_7_lodash_orderby___default()(data, this.sortOrder[0].sortField, this.sortOrder[0].direction);
-      }
-
-      this.tableData = sorted || data;
-
-      this.fireEvent('loaded');
+      this.tableData = !this.draggable && this.sortOrder ? __WEBPACK_IMPORTED_MODULE_7_lodash_orderby___default()(data, this.sortOrder.sortField, this.sortOrder.direction) : data;
     },
     makeTitle: function makeTitle(str) {
       if (this.isFieldComponent(str)) {
@@ -2503,86 +2408,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return this.$emit.apply(this, args);
       }
     },
-    warn: function warn(msg) {
-      if (!this.silent) {
-        console.warn(msg);
-      }
-    },
     isSortable: function isSortable(field) {
       return field.sortField !== null;
     },
-    currentSortOrderPosition: function currentSortOrderPosition(field) {
-      if (!this.isSortable(field)) {
-        return false;
-      }
-
-      for (var i = 0; i < this.sortOrder.length; i++) {
-        if (this.fieldIsInSortOrderPosition(field, i)) {
-          return i;
-        }
-      }
-
-      return false;
-    },
-    fieldIsInSortOrderPosition: function fieldIsInSortOrderPosition(field, i) {
-      return this.sortOrder[i].field === field.name && this.sortOrder[i].sortField === field.sortField;
-    },
-    orderBy: function orderBy(field, event) {
+    orderBy: function orderBy(field) {
       if (!this.isSortable(field)) return;
 
-      var key = this.multiSortKey.toLowerCase() + 'Key';
+      this.sortData(field);
 
-      if (this.multiSort && event[key]) {
-        this.multiColumnSort(field);
-      } else {
-        this.singleColumnSort(field);
-      }
-
-      this.currentPage = this.firstPage;
+      this.currentPage = 1;
 
       this.setData(this.data);
     },
-    addSortColumn: function addSortColumn(field, direction) {
-      this.sortOrder.push({
-        field: field.name,
-        sortField: field.sortField,
-        direction: 'asc'
-      });
-    },
-    removeSortColumn: function removeSortColumn(index) {
-      this.sortOrder.splice(index, 1);
-    },
-    setSortColumnDirection: function setSortColumnDirection(index, direction) {
-      this.sortOrder[index].direction = direction;
-    },
-    multiColumnSort: function multiColumnSort(field) {
-      var i = this.currentSortOrderPosition(field);
-
-      if (i === false) {
-        this.addSortColumn(field, 'asc');
-      } else {
-        if (this.sortOrder[i].direction === 'asc') {
-          this.setSortColumnDirection(i, 'desc');
-        } else {
-          this.removeSortColumn(i);
-        }
-      }
-    },
-    singleColumnSort: function singleColumnSort(field) {
-      if (this.sortOrder.length === 0) {
-        this.addSortColumn(field, 'asc');
+    sortData: function sortData(field) {
+      if (!this.sortOrder) {
+        this.sortOrder = {
+          field: field.name,
+          sortField: field.sortField,
+          direction: 'asc'
+        };
         return;
       }
 
-      this.sortOrder.splice(1);
-
-      if (this.fieldIsInSortOrderPosition(field, 0)) {
-        this.sortOrder[0].direction = this.sortOrder[0].direction === 'asc' ? 'desc' : 'asc';
+      if (this.sortOrder.field === field.name && this.sortOrder.sortField === field.sortField) {
+        this.sortOrder.direction = this.sortOrder.direction === 'asc' ? 'desc' : 'asc';
       } else {
-        this.sortOrder[0].direction = 'asc';
+        this.sortOrder.direction = 'asc';
       }
-      this.sortOrder[0].field = field.name;
-      this.sortOrder[0].sortField = field.sortField;
+      this.sortOrder.field = field.name;
+      this.sortOrder.sortField = field.sortField;
     },
     hasFormatter: function hasFormatter(item) {
       return typeof item.formatter === 'function';
@@ -2628,7 +2482,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.selectedTo = [];
     },
     gotoPreviousPage: function gotoPreviousPage() {
-      if (this.currentPage > this.firstPage) {
+      if (this.currentPage > 1) {
         this.currentPage--;
         this.setData(this.data);
       }
@@ -2640,7 +2494,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     gotoPage: function gotoPage(page) {
-      if (page != this.currentPage && page >= this.firstPage && page <= this.tablePagination.last_page) {
+      if (page != this.currentPage && page >= 1 && page <= this.tablePagination.last_page) {
         this.currentPage = page;
         this.setData(this.data);
       }
@@ -2704,9 +2558,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
     },
     normalizeSortOrder: function normalizeSortOrder() {
-      this.sortOrder.forEach(function (item) {
-        item.sortField = item.sortField || item.field;
-      });
+      if (this.sortOrder && !this.sortOrder.sortField) {
+        this.sortOrder.sortField = this.sortOrder.field;
+      }
     },
     isObject: function isObject(unknown) {
       return (typeof unknown === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(unknown)) === "object" && unknown !== null;
@@ -2721,19 +2575,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       return this.rowClass;
     },
-    onDetailRowClass: function onDetailRowClass(dataItem, index) {
-      if (typeof this.detailRowClass === 'function') {
-        return this.detailRowClass(dataItem, index);
-      }
-
-      return this.detailRowClass;
-    },
     onRowClicked: function onRowClicked(dataItem, dataIndex, event) {
       this.fireEvent('row-clicked', { data: dataItem, index: dataIndex, event: event });
       return true;
-    },
-    onRowDoubleClicked: function onRowDoubleClicked(dataItem, dataIndex, event) {
-      this.fireEvent('row-dblclicked', { data: dataItem, index: dataIndex, event: event });
     },
     onDetailRowClick: function onDetailRowClick(dataItem, dataIndex, event) {
       this.fireEvent('detail-row-clicked', { data: dataItem, index: dataIndex, event: event });
@@ -2747,9 +2591,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     onCellRightClicked: function onCellRightClicked(dataItem, dataIndex, field, event) {
       this.fireEvent('cell-rightclicked', { data: dataItem, index: dataIndex, field: field, event: event });
     },
-    onMouseOver: function onMouseOver(dataItem, dataIndex, event) {
-      this.fireEvent('row-mouseover', { data: dataItem, index: dataIndex, event: event });
-    },
     onFieldEvent: function onFieldEvent(type, payload) {
       this.fireEvent('field-event', type, payload, this);
     },
@@ -2759,10 +2600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     onCheckboxToggled: function onCheckboxToggled(isChecked, fieldName, dataItem) {
       var idColumn = this.trackBy;
 
-      if (dataItem[idColumn] === undefined) {
-        this.warn('checkbox field: The "' + this.trackBy + '" field does not exist! Make sure the field you specify in "track-by" prop does exist.');
-        return;
-      }
+      if (dataItem[idColumn] === undefined) return;
 
       var key = dataItem[idColumn];
       if (isChecked) {
@@ -2803,7 +2641,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.setData(this.data);
     },
     refresh: function refresh() {
-      this.currentPage = this.firstPage;
+      this.currentPage = 1;
       return this.setData(this.data);
     },
     resetData: function resetData() {
@@ -3064,17 +2902,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }
   },
-  methods: {
-    registerEvents: function registerEvents() {
-      var _this = this;
-
-      this.$on('vuetable:pagination-data', function (tablePagination) {
-        _this.setPaginationData(tablePagination);
-      });
-    }
-  },
   created: function created() {
-    this.registerEvents();
+    var _this = this;
+
+    this.$on('vuetable:pagination-data', function (tablePagination) {
+      _this.setPaginationData(tablePagination);
+    });
   }
 });
 
@@ -3351,8 +3184,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (title.length > 0 && this.isInCurrentSortGroup(field) || this.hasSortableIcon(field)) {
         var style = 'opacity:' + this.sortIconOpacity(field) + ';position:relative;float:right';
-        var iconTag = this.vuetable.showSortIcons ? this.renderIconTag(['sort-icon', this.sortIcon(field)], 'style="' + style + '"') : '';
-        return title + ' ' + iconTag;
+        return title + ' ' + this.renderIconTag(['sort-icon', this.sortIcon(field)], 'style="' + style + '"');
       }
 
       return title;
@@ -3382,9 +3214,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
       return typeof this.css.renderIcon === 'undefined' ? '<i class="' + classes.join(' ') + '" ' + options + '></i>' : this.css.renderIcon(classes, options);
-    },
-    onColumnHeaderClicked: function onColumnHeaderClicked(field, event) {
-      this.vuetable.orderBy(field, event);
     }
   }
 });
@@ -11239,7 +11068,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 2), _vm._v(" "), _c('draggable', {
     staticClass: "vuetable-body",
     attrs: {
-      "draggable": false,
+      "disabled": !_vm.draggable,
       "tag": "tbody"
     },
     model: {
@@ -11250,7 +11079,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "tableDataComp"
     }
   }, [_vm._l((_vm.tableDataComp), function(item, itemIndex) {
-    return [_c('tr', {
+    return _c('tr', {
       key: itemIndex,
       class: _vm.onRowClass(item, itemIndex),
       attrs: {
@@ -11259,12 +11088,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "click": function($event) {
           _vm.onRowClicked(item, itemIndex, $event)
-        },
-        "dblclick": function($event) {
-          _vm.onRowDoubleClicked(item, itemIndex, $event)
-        },
-        "mouseover": function($event) {
-          _vm.onMouseOver(item, itemIndex, $event)
         }
       }
     }, [_vm._l((_vm.tableFields), function(field, fieldIndex) {
@@ -11315,30 +11138,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       })]] : _vm._e()]
-    })], 2), _vm._v(" "), (_vm.useDetailRow) ? [_c('transition', {
-      key: itemIndex,
-      attrs: {
-        "name": _vm.detailRowTransition
-      }
-    }, [(_vm.isVisibleDetailRow(item[_vm.trackBy])) ? _c('tr', {
-      class: _vm.onDetailRowClass(item, itemIndex),
-      on: {
-        "click": function($event) {
-          _vm.onDetailRowClick(item, itemIndex, $event)
-        }
-      }
-    }, [_c('td', {
-      attrs: {
-        "colspan": _vm.countVisibleFields
-      }
-    }, [_c(_vm.detailRowComponent, {
-      tag: "component",
-      attrs: {
-        "row-data": item,
-        "row-index": itemIndex,
-        "options": _vm.detailRowOptions
-      }
-    })], 1)]) : _vm._e()])] : _vm._e()]
+    })], 2)
   }), _vm._v(" "), (_vm.displayEmptyDataRow) ? [_c('tr', [_c('td', {
     staticClass: "vuetable-empty-result",
     attrs: {
@@ -11539,7 +11339,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "vuetable:header-event": _vm.vuetable.onHeaderEvent,
         "click": function($event) {
-          _vm.onColumnHeaderClicked(field, $event)
+          _vm.vuetable.orderBy(field)
         }
       }
     })] : (_vm.vuetable.isFieldSlot(field.name)) ? [_c('th', {
@@ -11553,7 +11353,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.onColumnHeaderClicked(field, $event)
+          _vm.vuetable.orderBy(field)
         }
       }
     })] : [_c('th', {
@@ -11570,7 +11370,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.onColumnHeaderClicked(field, $event)
+          _vm.vuetable.orderBy(field)
         }
       }
     })]] : _vm._e()]

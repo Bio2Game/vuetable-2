@@ -30,67 +30,48 @@
       <tfoot>
         <slot name="tableFooter" :fields="tableFields"></slot>
       </tfoot>
-      <draggable v-cloak v-model="tableDataComp" :draggable="false" tag="tbody" class="vuetable-body">
-        <template v-for="(item, itemIndex) in tableDataComp">
-          <tr :item-index="itemIndex"
-            :key="itemIndex"
-            :class="onRowClass(item, itemIndex)"
-            @click="onRowClicked(item, itemIndex, $event)"
-            @dblclick="onRowDoubleClicked(item, itemIndex, $event)"
-            @mouseover="onMouseOver(item, itemIndex, $event)"
-          >
-            <template v-for="(field, fieldIndex) in tableFields">
-              <template v-if="field.visible">
-                <template v-if="isFieldComponent(field.name)">
-                  <component :is="field.name"
-                    :key="fieldIndex"
+      <draggable v-cloak v-model="tableDataComp" :disabled="!draggable" tag="tbody" class="vuetable-body">
+        <tr :item-index="itemIndex"
+          v-for="(item, itemIndex) in tableDataComp"
+          :key="itemIndex"
+          :class="onRowClass(item, itemIndex)"
+          @click="onRowClicked(item, itemIndex, $event)"
+        >
+          <template v-for="(field, fieldIndex) in tableFields">
+            <template v-if="field.visible">
+              <template v-if="isFieldComponent(field.name)">
+                <component :is="field.name"
+                  :key="fieldIndex"
+                  :row-data="item" :row-index="itemIndex" :row-field="field"
+                  :vuetable="vuetable"
+                  :class="bodyClass('vuetable-component', field)"
+                  :style="{width: field.width}"
+                  @vuetable:field-event="onFieldEvent"
+                ></component>
+              </template>
+              <template v-else-if="isFieldSlot(field.name)">
+                <td :class="bodyClass('vuetable-slot', field)"
+                  :key="fieldIndex"
+                  :style="{width: field.width}"
+                >
+                  <slot :name="field.name"
                     :row-data="item" :row-index="itemIndex" :row-field="field"
-                    :vuetable="vuetable"
-                    :class="bodyClass('vuetable-component', field)"
-                    :style="{width: field.width}"
-                    @vuetable:field-event="onFieldEvent"
-                  ></component>
-                </template>
-                <template v-else-if="isFieldSlot(field.name)">
-                  <td :class="bodyClass('vuetable-slot', field)"
-                    :key="fieldIndex"
-                    :style="{width: field.width}"
-                  >
-                    <slot :name="field.name"
-                      :row-data="item" :row-index="itemIndex" :row-field="field"
-                    ></slot>
-                  </td>
-                </template>
-                <template v-else>
-                  <td :class="bodyClass('vuetable-td-'+field.name, field)"
-                    :key="fieldIndex"
-                    :style="{width: field.width}"
-                    v-html="renderNormalField(field, item)"
-                    @click="onCellClicked(item, itemIndex, field, $event)"
-                    @dblclick="onCellDoubleClicked(item, itemIndex, field, $event)"
-                    @contextmenu="onCellRightClicked(item, itemIndex, field, $event)"
-                  ></td>
-                </template>
+                  ></slot>
+                </td>
+              </template>
+              <template v-else>
+                <td :class="bodyClass('vuetable-td-'+field.name, field)"
+                  :key="fieldIndex"
+                  :style="{width: field.width}"
+                  v-html="renderNormalField(field, item)"
+                  @click="onCellClicked(item, itemIndex, field, $event)"
+                  @dblclick="onCellDoubleClicked(item, itemIndex, field, $event)"
+                  @contextmenu="onCellRightClicked(item, itemIndex, field, $event)"
+                ></td>
               </template>
             </template>
-          </tr>
-          <template v-if="useDetailRow">
-            <transition :name="detailRowTransition" :key="itemIndex">
-              <tr v-if="isVisibleDetailRow(item[trackBy])"
-                @click="onDetailRowClick(item, itemIndex, $event)"
-                :class="onDetailRowClass(item, itemIndex)"
-              >
-                <td :colspan="countVisibleFields">
-                  <component :is="detailRowComponent"
-                    :row-data="item"
-                    :row-index="itemIndex"
-                    :options="detailRowOptions"
-                  ></component>
-                </td>
-              </tr>
-            </transition>
           </template>
-        </template>
+        </tr>
         <template v-if="displayEmptyDataRow">
           <tr>
             <td :colspan="countVisibleFields"
@@ -134,85 +115,26 @@ export default {
       type: Array,
       required: true
     },
-    loadOnStart: {
-      type: Boolean,
-      default: true
-    },
     data: {
       type: [Array, Object],
       default: null
-    },
-    dataManager: {
-      type: Function,
-      default: null
-    },
-    paginationPath: {
-      type: String,
-      default: 'links.pagination'
     },
 
     perPage: {
         type: Number,
         default: 10
     },
-    /**
-     * Page that should be displayed when the table is first displayed
-     */
-    initialPage: {
-      type: Number,
-      default: 1
-    },
-    /**
-     * First page number. Set this prop to 0 for zero based pagination
-     */
-    firstPage: {
-      type: Number,
-      default: 1
-    },
     sortOrder: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    multiSort: {
-      type: Boolean,
-      default: false
+      type: Object,
+      default: () => null
     },
     tableHeight: {
       type: String,
       default: null
     },
-    /*
-     * physical key that will trigger multi-sort option
-     * possible values: 'alt', 'ctrl', 'meta', 'shift'
-     * 'ctrl' might not work as expected on Mac
-     */
-    multiSortKey: {
-      type: String,
-      default: 'alt'
-    },
     rowClass: {
       type: [String, Function],
       default: ''
-    },
-    detailRowComponent: {
-      type: [String, Object],
-      default: ''
-    },
-    detailRowTransition: {
-      type: String,
-      default: ''
-    },
-    detailRowClass: {
-      type: [String, Function],
-      default: 'vuetable-detail-row'
-    },
-    detailRowOptions: {
-      type: Object,
-      default() {
-        return {}
-      }
     },
     trackBy: {
       type: String,
@@ -228,19 +150,11 @@ export default {
       type: Number,
       default: 0
     },
-    silent: {
-      type: Boolean,
-      default: false
-    },
     noDataTemplate: {
       type: String,
       default() {
         return 'No Data Available'
       }
-    },
-    showSortIcons: {
-      type: Boolean,
-      default: true
     },
     headerRows: {
       type: Array,
@@ -249,10 +163,6 @@ export default {
       }
     },
     transform: {
-      type: Function,
-      default: null
-    },
-    sortParams: {
       type: Function,
       default: null
     },
@@ -270,7 +180,7 @@ export default {
     },
     draggable: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 
@@ -279,7 +189,7 @@ export default {
       tableFields: [],
       tableData: null,
       tablePagination: null,
-      currentPage: this.initialPage,
+      currentPage: 1,
       selectedTo: [],
       visibleDetailRows: [],
       lastScrollPosition: 0,
@@ -297,14 +207,10 @@ export default {
       },
       set(value) {
         this.$emit('input', value)
+        this.setData(value)
       }
     },
 
-    useDetailRow () {
-      if ( ! this.dataIsAvailable) return false
-
-      return this.detailRowComponent !== ''
-    },
     dataIsAvailable () {
       if ( ! this.tableData) return false
 
@@ -349,15 +255,6 @@ export default {
     vuetable () {
       return this
     },
-    dragOptions() {
-      return {
-        animation: 200,
-        group: 'description',
-        disabled: !draggable,
-        ghostClass: 'ghost',
-        // handle: 'material-icons'
-      }
-    },
   },
 
   created() {
@@ -370,9 +267,7 @@ export default {
   },
 
   mounted () {
-    if (this.loadOnStart) {
-      this.setData(this.data)
-    }
+    this.setData(this.data)
 
     if (this.isFixedHeader) {
       this.scrollBarWidth = this.getScrollBarWidth() + 'px';
@@ -392,13 +287,6 @@ export default {
   },
 
   watch: {
-    multiSort (newVal, oldVal) {
-      if (newVal === false && this.sortOrder.length > 1) {
-        this.sortOrder.splice(1);
-        this.setData(this.data)
-      }
-    },
-
     data (newVal, oldVal) {
       this.setData(newVal)
     },
@@ -465,10 +353,7 @@ export default {
     },
 
     normalizeFields () {
-      if (typeof(this.fields) === 'undefined') {
-        this.warn('You need to provide "fields" prop.')
-        return
-      }
+      if (typeof(this.fields) === 'undefined') return
 
       this.tableFields = []
 
@@ -520,18 +405,7 @@ export default {
     setData (data) {
       if (data === null || typeof(data) === 'undefined') return
 
-      this.fireEvent('loading')
-
-      let sorted;
-      if(this.draggable) {
-        this.$emit('input', data)
-      } else if(this.sortOrder.length) {
-        sorted = orderByLodash(data, this.sortOrder[0].sortField, this.sortOrder[0].direction)
-      }
-
-      this.tableData = sorted || data
-
-      this.fireEvent('loaded')
+      this.tableData = !this.draggable && this.sortOrder ? orderByLodash(data, this.sortOrder.sortField, this.sortOrder.direction) : data
     },
 
     makeTitle (str) {
@@ -611,100 +485,39 @@ export default {
       }
     },
 
-    warn (msg) {
-      if (!this.silent) {
-        console.warn(msg)
-      }
-    },
-
-
     isSortable (field) {
       return field.sortField !== null
     },
 
-    currentSortOrderPosition (field) {
-      if ( ! this.isSortable(field)) {
-        return false
-      }
+    orderBy (field) {
+      if (!this.isSortable(field)) return
 
-      for (let i = 0; i < this.sortOrder.length; i++) {
-        if (this.fieldIsInSortOrderPosition(field, i)) {
-          return i;
-        }
-      }
+      this.sortData(field)
 
-      return false;
-    },
-
-    fieldIsInSortOrderPosition (field, i) {
-      return this.sortOrder[i].field === field.name && this.sortOrder[i].sortField === field.sortField
-    },
-
-    orderBy (field, event) {
-      if ( ! this.isSortable(field) ) return
-
-      let key = this.multiSortKey.toLowerCase() + 'Key'
-
-      if (this.multiSort && event[key]) { //adding column to multisort
-        this.multiColumnSort(field)
-      } else {
-        //no multisort, or resetting sort
-        this.singleColumnSort(field)
-      }
-
-      this.currentPage = this.firstPage    // reset page index
+      this.currentPage = 1    // reset page index
 
       this.setData(this.data)
     },
 
-    addSortColumn (field, direction) {
-      this.sortOrder.push({
-        field: field.name,
-        sortField: field.sortField,
-        direction: 'asc'
-      });
-    },
-
-    removeSortColumn (index) {
-      this.sortOrder.splice(index, 1);
-    },
-
-    setSortColumnDirection (index, direction) {
-      this.sortOrder[index].direction = direction
-    },
-
-    multiColumnSort (field) {
-      let i = this.currentSortOrderPosition(field);
-
-      if (i === false) { //this field is not in the sort array yet
-        this.addSortColumn(field, 'asc')
-      } else { //this field is in the sort array, now we change its state
-        if (this.sortOrder[i].direction === 'asc') {
-          // switch direction
-          this.setSortColumnDirection(i, 'desc')
-        } else {
-          this.removeSortColumn(i)
-        }
-      }
-    },
-
-    singleColumnSort (field) {
-      if (this.sortOrder.length === 0) {
-        this.addSortColumn(field, 'asc')
+    sortData (field) {
+      if (!this.sortOrder) {
+        this.sortOrder = {
+          field: field.name,
+          sortField: field.sortField,
+          direction: 'asc'
+        };
         return
       }
 
-      this.sortOrder.splice(1); //removes additional columns
-
-      if (this.fieldIsInSortOrderPosition(field, 0)) {
+      if (this.sortOrder.field === field.name && this.sortOrder.sortField === field.sortField) {
         // change sort direction
-        this.sortOrder[0].direction = this.sortOrder[0].direction === 'asc' ? 'desc' : 'asc'
+        this.sortOrder.direction = this.sortOrder.direction === 'asc' ? 'desc' : 'asc'
       } else {
         // reset sort direction
-        this.sortOrder[0].direction = 'asc'
+        this.sortOrder.direction = 'asc'
       }
-      this.sortOrder[0].field = field.name
-      this.sortOrder[0].sortField = field.sortField
+      this.sortOrder.field = field.name
+      this.sortOrder.sortField = field.sortField
     },
 
     hasFormatter (item) {
@@ -758,7 +571,7 @@ export default {
     },
 
     gotoPreviousPage () {
-      if (this.currentPage > this.firstPage) {
+      if (this.currentPage > 1) {
         this.currentPage--
         this.setData(this.data)
       }
@@ -772,7 +585,7 @@ export default {
     },
 
     gotoPage (page) {
-      if (page != this.currentPage && (page >= this.firstPage && page <= this.tablePagination.last_page)) {
+      if (page != this.currentPage && (page >= 1 && page <= this.tablePagination.last_page)) {
         this.currentPage = page
         this.setData(this.data)
       }
@@ -844,9 +657,9 @@ export default {
     },
 
     normalizeSortOrder () {
-      this.sortOrder.forEach( (item) => {
-        item.sortField = item.sortField || item.field
-      })
+      if (this.sortOrder && !this.sortOrder.sortField) {
+        this.sortOrder.sortField = this.sortOrder.field
+      }
     },
 
     isObject (unknown) {
@@ -865,21 +678,9 @@ export default {
       return this.rowClass
     },
 
-    onDetailRowClass (dataItem, index) {
-      if (typeof(this.detailRowClass) === 'function') {
-        return this.detailRowClass(dataItem, index)
-      }
-
-      return this.detailRowClass
-    },
-
     onRowClicked (dataItem, dataIndex, event) {
       this.fireEvent('row-clicked', { data: dataItem, index: dataIndex, event: event })
       return true
-    },
-
-    onRowDoubleClicked (dataItem, dataIndex, event) {
-      this.fireEvent('row-dblclicked', { data: dataItem, index: dataIndex, event: event })
     },
 
     onDetailRowClick (dataItem, dataIndex, event) {
@@ -898,10 +699,6 @@ export default {
       this.fireEvent('cell-rightclicked', { data: dataItem, index: dataIndex, field: field, event: event })
     },
 
-    onMouseOver (dataItem, dataIndex, event) {
-      this.fireEvent('row-mouseover', { data: dataItem, index: dataIndex, event: event })
-    },
-
     onFieldEvent (type, payload) {
       this.fireEvent('field-event', type, payload, this)
     },
@@ -913,10 +710,7 @@ export default {
     onCheckboxToggled (isChecked, fieldName, dataItem) {
       let idColumn = this.trackBy
 
-      if (dataItem[idColumn] === undefined) {
-        this.warn('checkbox field: The "'+this.trackBy+'" field does not exist! Make sure the field you specify in "track-by" prop does exist.')
-        return
-      }
+      if (dataItem[idColumn] === undefined) return
 
       let key = dataItem[idColumn]
       if (isChecked) {
@@ -962,7 +756,7 @@ export default {
     },
 
     refresh () {
-      this.currentPage = this.firstPage
+      this.currentPage = 1
       return this.setData(this.data)
     },
 

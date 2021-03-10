@@ -12,7 +12,7 @@
             :class="headerClass('vuetable-th-component', field)"
             :style="{width: field.width}"
             @vuetable:header-event="vuetable.onHeaderEvent"
-            @click="onColumnHeaderClicked(field, $event)"
+            @click="vuetable.orderBy(field)"
           ></component>
         </template>
         <template v-else-if="vuetable.isFieldSlot(field.name)">
@@ -20,11 +20,11 @@
               :key="fieldIndex"
               :style="{width: field.width}"
               v-html="renderTitle(field)"
-              @click="onColumnHeaderClicked(field, $event)"
+              @click="vuetable.orderBy(field)"
           ></th>
         </template>
         <template v-else>
-          <th @click="onColumnHeaderClicked(field, $event)"
+          <th @click="vuetable.orderBy(field)"
             :key="fieldIndex"
             :id="'_' + field.name"
             :class="headerClass('vuetable-th', field)"
@@ -45,7 +45,7 @@ import VuetableColGutter from './VuetableColGutter'
 
 export default {
   components: {
-    'vuetable-field-checkbox': VuetableFieldCheckbox, 
+    'vuetable-field-checkbox': VuetableFieldCheckbox,
     'vuetable-field-handle'  : VuetableFieldHandle,
     'vuetable-field-sequence': VuetableFieldSequence,
     VuetableColGutter
@@ -138,8 +138,7 @@ export default {
 
       if (title.length > 0 && this.isInCurrentSortGroup(field) || this.hasSortableIcon(field)) {
         let style = `opacity:${this.sortIconOpacity(field)};position:relative;float:right`
-        let iconTag = this.vuetable.showSortIcons ? this.renderIconTag(['sort-icon', this.sortIcon(field)], `style="${style}"`) : ''
-        return title + ' ' + iconTag
+        return title + ' ' + this.renderIconTag(['sort-icon', this.sortIcon(field)], `style="${style}"`)
       }
 
       return title
@@ -185,10 +184,6 @@ export default {
         ? `<i class="${classes.join(' ')}" ${options}></i>`
         : this.css.renderIcon(classes, options)
     },
-
-    onColumnHeaderClicked (field, event) {
-      this.vuetable.orderBy(field, event)
-    }
   }
 }
 </script>
