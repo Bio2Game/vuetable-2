@@ -2123,7 +2123,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     draggable: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
 
