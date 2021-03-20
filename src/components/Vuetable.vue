@@ -171,7 +171,7 @@ export default {
     },
     draggable: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
 
