@@ -165,8 +165,8 @@ export default {
       default: "id",
     },
     defaultSortBy: {
-      type: String,
-      default: "id",
+      type: Object,
+      default: () => ({ field: "id", direction: "asc" }),
     },
     css: {
       type: Object,
@@ -331,8 +331,10 @@ export default {
     },
 
     defaultSortBy(newVal, oldVal) {
-      const field = this.fields.find((field) => field.sortField === newVal);
-      this.sortData(field);
+      const field = this.fields.find(
+        (field) => field.sortField === newVal.field
+      );
+      this.sortData(field, newVal.direction);
     },
   },
 
@@ -530,27 +532,32 @@ export default {
       this.setData(this.data);
     },
 
-    sortData(field) {
+    sortData(field, direction) {
       if (!this.sortOrder) {
         this.sortOrder = {
           field: field.name,
           sortField: field.sortField,
-          direction: "asc",
+          direction: direction || "asc",
         };
         return;
       }
 
-      if (
-        this.sortOrder.field === field.name &&
-        this.sortOrder.sortField === field.sortField
-      ) {
-        // change sort direction
-        this.sortOrder.direction =
-          this.sortOrder.direction === "asc" ? "desc" : "asc";
+      if (!direction) {
+        if (
+          this.sortOrder.field === field.name &&
+          this.sortOrder.sortField === field.sortField
+        ) {
+          // change sort direction
+          this.sortOrder.direction =
+            this.sortOrder.direction === "asc" ? "desc" : "asc";
+        } else {
+          // reset sort direction
+          this.sortOrder.direction = "asc";
+        }
       } else {
-        // reset sort direction
-        this.sortOrder.direction = "asc";
+        this.sortOrder.direction = direction;
       }
+
       this.sortOrder.field = field.name;
       this.sortOrder.sortField = field.sortField;
     },
@@ -672,9 +679,9 @@ export default {
 
     setupSortOrder() {
       const field = this.fields.find(
-        (field) => field.sortField === this.defaultSortBy
+        (field) => field.sortField === this.defaultSortBy.field
       );
-      this.sortData(field);
+      this.sortData(field, this.defaultSortBy.direction);
     },
 
     isObject(unknown) {
