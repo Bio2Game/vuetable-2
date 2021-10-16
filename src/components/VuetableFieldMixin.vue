@@ -3,26 +3,26 @@ export default {
   props: {
     rowData: {
       type: Object,
-      default: null
+      default: null,
     },
     rowIndex: {
-      type: Number
+      type: Number,
     },
     rowField: {
-      type: Object
+      type: Object,
     },
     isHeader: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: ''
+      default: "",
     },
     vuetable: {
       type: Object,
-      default: null
-    }
-  }
-}
+      default: null,
+    },
+  },
+};
 </script>
