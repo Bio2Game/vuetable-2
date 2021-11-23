@@ -2568,6 +2568,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return true;
     },
     onContextMenu: function onContextMenu(dataItem, dataIndex, event) {
+      if (!this.contextmenu) return;
+      event.preventDefault();
       this.fireEvent("row-contextmenu", {
         data: dataItem,
         index: dataIndex,

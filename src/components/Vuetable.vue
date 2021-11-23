@@ -715,6 +715,8 @@ export default {
     },
 
     onContextMenu(dataItem, dataIndex, event) {
+      if (!this.contextmenu) return;
+      event.preventDefault();
       this.fireEvent("row-contextmenu", {
         data: dataItem,
         index: dataIndex,
