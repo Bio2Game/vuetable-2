@@ -344,7 +344,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableFieldMixin.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableFieldMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -810,7 +810,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetablePaginationMixin.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetablePaginationMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -866,39 +866,39 @@ module.exports = g;
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
   table: {
-    tableWrapper: '',
-    tableHeaderClass: 'fixed',
-    tableBodyClass: 'fixed',
-    tableClass: 'ui blue selectable unstackable celled table',
-    loadingClass: 'loading',
-    ascendingClass: 'sorted-asc',
-    descendingClass: 'sorted-desc',
+    tableWrapper: "",
+    tableHeaderClass: "fixed",
+    tableBodyClass: "fixed",
+    tableClass: "ui blue selectable unstackable celled table",
+    loadingClass: "loading",
+    ascendingClass: "sorted-asc",
+    descendingClass: "sorted-desc",
 
-    ascendingIcon: 'expand_more',
-    descendingIcon: 'expand_less',
-    sortableIcon: 'unfold_more',
-    handleIcon: 'drag_handle'
+    ascendingIcon: "expand_more",
+    descendingIcon: "expand_less",
+    sortableIcon: "unfold_more",
+    handleIcon: "drag_handle"
   },
 
   pagination: {
-    wrapperClass: 'ui right floated pagination menu',
-    activeClass: 'active large',
-    disabledClass: 'disabled',
-    pageClass: 'item',
-    linkClass: 'icon item',
-    paginationClass: 'ui bottom attached segment grid',
-    paginationInfoClass: 'left floated left aligned six wide column',
-    dropdownClass: 'ui search dropdown',
+    wrapperClass: "ui right floated pagination menu",
+    activeClass: "active large",
+    disabledClass: "disabled",
+    pageClass: "item",
+    linkClass: "icon item",
+    paginationClass: "ui bottom attached segment grid",
+    paginationInfoClass: "left floated left aligned six wide column",
+    dropdownClass: "ui search dropdown",
     icons: {
-      first: 'angle double left icon',
-      prev: 'left chevron icon',
-      next: 'right chevron icon',
-      last: 'angle double right icon'
+      first: "angle double left icon",
+      prev: "left chevron icon",
+      next: "right chevron icon",
+      last: "angle double right icon"
     }
   },
 
   paginationInfo: {
-    infoClass: 'left floated left aligned six wide column'
+    infoClass: "left floated left aligned six wide column"
   }
 });
 
@@ -1084,7 +1084,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableColGutter.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableColGutter.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetableColGutter.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1124,7 +1124,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableFieldCheckbox.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableFieldCheckbox.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetableFieldCheckbox.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1164,7 +1164,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableFieldCheckboxMixin.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableFieldCheckboxMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -1203,7 +1203,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableFieldHandle.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableFieldHandle.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetableFieldHandle.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1243,7 +1243,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableFieldSequence.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableFieldSequence.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetableFieldSequence.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1283,7 +1283,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -1322,7 +1322,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableRowHeader.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableRowHeader.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetableRowHeader.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1864,7 +1864,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/Vuetable.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/Vuetable.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vuetable.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1908,7 +1908,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetablePagination.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetablePagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1948,7 +1948,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetablePaginationDropdown.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetablePaginationDropdown.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePaginationDropdown.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1992,7 +1992,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetablePaginationInfo.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetablePaginationInfo.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePaginationInfo.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2052,7 +2052,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Vuetable',
+  name: "Vuetable",
 
   components: {
     VuetableRowHeader: __WEBPACK_IMPORTED_MODULE_4__VuetableRowHeader___default.a,
@@ -2079,15 +2079,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     rowClass: {
       type: [String, Function],
-      default: ''
+      default: ""
     },
     trackBy: {
       type: String,
-      default: 'id'
+      default: "id"
     },
     defaultSortBy: {
-      type: String,
-      default: 'id'
+      type: Object,
+      default: function _default() {
+        return { field: "id", direction: "asc" };
+      }
     },
     css: {
       type: Object,
@@ -2102,13 +2104,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     noDataTemplate: {
       type: String,
       default: function _default() {
-        return 'No Data Available';
+        return "No Data Available";
       }
     },
     headerRows: {
       type: Array,
       default: function _default() {
-        return ['VuetableRowHeader'];
+        return ["VuetableRowHeader"];
       }
     },
     transform: {
@@ -2118,10 +2120,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fieldPrefix: {
       type: String,
       default: function _default() {
-        return 'vuetable-field-';
+        return "vuetable-field-";
       }
     },
     draggable: {
+      type: Boolean,
+      default: false
+    },
+    contextmenu: {
       type: Boolean,
       default: false
     }
@@ -2136,7 +2142,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       currentPage: 1,
       selectedTo: [],
       lastScrollPosition: 0,
-      scrollBarWidth: '17px',
+      scrollBarWidth: "17px",
       scrollVisible: false,
       $_css: {}
     };
@@ -2149,7 +2155,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return this.tableData;
       },
       set: function set(value) {
-        this.$emit('input', value);
+        this.$emit("input", value);
         this.setData(value);
       }
     },
@@ -2160,7 +2166,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.tableData.length > 0;
     },
     hasRowIdentifier: function hasRowIdentifier() {
-      return this.tableData && typeof this.tableData[0][this.trackBy] !== 'undefined';
+      return this.tableData && typeof this.tableData[0][this.trackBy] !== "undefined";
     },
     countVisibleFields: function countVisibleFields() {
       return this.tableFields.filter(function (field) {
@@ -2207,25 +2213,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.normalizeFields();
     this.setupSortOrder();
     this.$nextTick(function () {
-      _this.fireEvent('initialized', _this.tableFields);
+      _this.fireEvent("initialized", _this.tableFields);
     });
   },
   mounted: function mounted() {
     this.setData(this.data);
 
     if (this.isFixedHeader) {
-      this.scrollBarWidth = this.getScrollBarWidth() + 'px';
+      this.scrollBarWidth = this.getScrollBarWidth() + "px";
 
-      var elem = this.$el.getElementsByClassName('vuetable-body-wrapper')[0];
+      var elem = this.$el.getElementsByClassName("vuetable-body-wrapper")[0];
       if (elem != null) {
-        elem.addEventListener('scroll', this.handleScroll);
+        elem.addEventListener("scroll", this.handleScroll);
       }
     }
   },
   destroyed: function destroyed() {
-    var elem = this.$el.getElementsByClassName('vuetable-body-wrapper')[0];
+    var elem = this.$el.getElementsByClassName("vuetable-body-wrapper")[0];
     if (elem != null) {
-      elem.removeEventListener('scroll', this.handleScroll);
+      elem.removeEventListener("scroll", this.handleScroll);
     }
   },
 
@@ -2248,27 +2254,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     defaultSortBy: function defaultSortBy(newVal, oldVal) {
       var field = this.fields.find(function (field) {
-        return field.sortField === newVal;
+        return field.sortField === newVal.field;
       });
-      this.sortData(field);
+      this.sortData(field, newVal.direction);
     }
   },
 
   methods: {
     getScrollBarWidth: function getScrollBarWidth() {
-      var outer = document.createElement('div');
-      var inner = document.createElement('div');
+      var outer = document.createElement("div");
+      var inner = document.createElement("div");
 
-      outer.style.visibility = 'hidden';
-      outer.style.width = '100px';
+      outer.style.visibility = "hidden";
+      outer.style.width = "100px";
 
-      inner.style.width = '100%';
+      inner.style.width = "100%";
 
       outer.appendChild(inner);
       document.body.appendChild(outer);
 
       var widthWithoutScrollbar = outer.offsetWidth;
-      outer.style.overflow = 'scroll';
+      outer.style.overflow = "scroll";
       var widthWithScrollbar = inner.offsetWidth;
       document.body.removeChild(outer);
 
@@ -2278,7 +2284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var horizontal = e.currentTarget.scrollLeft;
 
       if (horizontal != this.lastScrollPosition) {
-        var header = this.$el.getElementsByClassName('vuetable-head-wrapper')[0];
+        var header = this.$el.getElementsByClassName("vuetable-head-wrapper")[0];
         if (header != null) {
           header.scrollLeft = horizontal;
         }
@@ -2294,7 +2300,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     normalizeFields: function normalizeFields() {
       var _this2 = this;
 
-      if (typeof this.fields === 'undefined') return;
+      if (typeof this.fields === "undefined") return;
 
       this.tableFields = [];
 
@@ -2304,10 +2310,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     newField: function newField(field, index) {
       var defaultField = {
-        name: '',
+        name: "",
 
-        titleClass: '',
-        dataClass: '',
+        titleClass: "",
+        dataClass: "",
         sortField: null,
         formatter: null,
         visible: true,
@@ -2315,7 +2321,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         $_index: index
       };
 
-      if (typeof field === 'string') {
+      if (typeof field === "string") {
         return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default()({}, defaultField, {
           name: this.normalizeFieldName(field),
           title: this.makeTitle(field)
@@ -2327,8 +2333,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (obj.title === undefined) {
         obj.title = this.makeTitle(obj.name);
       }
-      if (obj.formatter !== null && typeof obj.formatter !== 'function') {
-        console.error(obj.name + ' field formatter must be a function');
+      if (obj.formatter !== null && typeof obj.formatter !== "function") {
+        console.error(obj.name + " field formatter must be a function");
         obj.formatter = null;
       }
       return obj;
@@ -2336,37 +2342,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     normalizeFieldName: function normalizeFieldName(fieldName) {
       if (fieldName instanceof Object) return fieldName;
 
-      return typeof fieldName === 'string' && fieldName.replace('__', this.fieldPrefix);
+      return typeof fieldName === "string" && fieldName.replace("__", this.fieldPrefix);
     },
     setData: function setData(data) {
-      if (data === null || typeof data === 'undefined') return;
+      if (data === null || typeof data === "undefined") return;
 
       this.tableData = !this.draggable && this.sortOrder ? __WEBPACK_IMPORTED_MODULE_7_lodash_orderby___default()(data, this.sortOrder.sortField, this.sortOrder.direction) : data;
     },
     makeTitle: function makeTitle(str) {
       if (this.isFieldComponent(str)) {
-        return '';
+        return "";
       }
 
-      return this.titleCase(str.replace('.', ' '));
+      return this.titleCase(str.replace(".", " "));
     },
     getFieldTitle: function getFieldTitle(field) {
-      if (typeof field.title === 'function') return field.title();
+      if (typeof field.title === "function") return field.title();
 
       return field.title;
     },
     renderNormalField: function renderNormalField(field, item) {
-      return this.hasFormatter(field) ? this.callFormatter(field, item) : this.getObjectValue(item, field.name, '');
+      return this.hasFormatter(field) ? this.callFormatter(field, item) : this.getObjectValue(item, field.name, "");
     },
     isFieldComponent: function isFieldComponent(fieldName) {
       if (fieldName instanceof Object) {
         return true;
       }
 
-      return fieldName.slice(0, this.fieldPrefix.length) === this.fieldPrefix || fieldName.slice(0, 2) === '__';
+      return fieldName.slice(0, this.fieldPrefix.length) === this.fieldPrefix || fieldName.slice(0, 2) === "__";
     },
     isFieldSlot: function isFieldSlot(fieldName) {
-      return typeof this.$scopedSlots[fieldName] !== 'undefined';
+      return typeof this.$scopedSlots[fieldName] !== "undefined";
     },
     titleCase: function titleCase(str) {
       return str.replace(/\w+/g, function (txt) {
@@ -2374,20 +2380,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     camelCase: function camelCase(str) {
-      var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '_';
+      var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "_";
 
       return str.split(delimiter).map(function (item) {
         return self.titleCase(item);
-      }).join('');
+      }).join("");
     },
     checkScrollbarVisibility: function checkScrollbarVisibility() {
       var _this3 = this;
 
       this.$nextTick(function () {
-        var elem = _this3.$el.getElementsByClassName('vuetable-body-wrapper')[0];
+        var elem = _this3.$el.getElementsByClassName("vuetable-body-wrapper")[0];
         if (elem != null) {
           _this3.scrollVisible = elem.scrollHeight > elem.clientHeight;
-          _this3.fireEvent('scrollbar-visible', _this3.scrollVisible);
+          _this3.fireEvent("scrollbar-visible", _this3.scrollVisible);
         }
       });
     },
@@ -2412,42 +2418,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.setData(this.data);
     },
-    sortData: function sortData(field) {
+    sortData: function sortData(field, direction) {
       if (!this.sortOrder) {
         this.sortOrder = {
           field: field.name,
           sortField: field.sortField,
-          direction: 'asc'
+          direction: direction || "asc"
         };
         return;
       }
 
-      if (this.sortOrder.field === field.name && this.sortOrder.sortField === field.sortField) {
-        this.sortOrder.direction = this.sortOrder.direction === 'asc' ? 'desc' : 'asc';
+      if (!direction) {
+        if (this.sortOrder.field === field.name && this.sortOrder.sortField === field.sortField) {
+          this.sortOrder.direction = this.sortOrder.direction === "asc" ? "desc" : "asc";
+        } else {
+          this.sortOrder.direction = "asc";
+        }
       } else {
-        this.sortOrder.direction = 'asc';
+        this.sortOrder.direction = direction;
       }
+
       this.sortOrder.field = field.name;
       this.sortOrder.sortField = field.sortField;
     },
     hasFormatter: function hasFormatter(item) {
-      return typeof item.formatter === 'function';
+      return typeof item.formatter === "function";
     },
     callFormatter: function callFormatter(field, item) {
       if (!this.hasFormatter(field)) return;
 
-      if (typeof field.formatter === 'function') {
+      if (typeof field.formatter === "function") {
         return field.formatter(this.getObjectValue(item, field.name), this);
       }
     },
     getObjectValue: function getObjectValue(object, path, defaultValue) {
-      defaultValue = typeof defaultValue === 'undefined' ? null : defaultValue;
+      defaultValue = typeof defaultValue === "undefined" ? null : defaultValue;
 
       var obj = object;
-      if (path.trim() != '') {
-        var keys = path.split('.');
+      if (path.trim() != "") {
+        var keys = path.split(".");
         keys.forEach(function (key) {
-          if (obj !== null && typeof obj[key] !== 'undefined' && obj[key] !== null) {
+          if (obj !== null && typeof obj[key] !== "undefined" && obj[key] !== null) {
             obj = obj[key];
           } else {
             obj = defaultValue;
@@ -2517,49 +2528,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       currentPage = currentPage === null ? this.currentPage : currentPage;
 
       return {
-        'total': total,
-        'per_page': perPage,
-        'current_page': currentPage,
-        'last_page': Math.ceil(total / perPage) || 0,
-        'next_page_url': '',
-        'prev_page_url': '',
-        'from': (currentPage - 1) * perPage + 1,
-        'to': Math.min(currentPage * perPage, total)
+        total: total,
+        per_page: perPage,
+        current_page: currentPage,
+        last_page: Math.ceil(total / perPage) || 0,
+        next_page_url: "",
+        prev_page_url: "",
+        from: (currentPage - 1) * perPage + 1,
+        to: Math.min(currentPage * perPage, total)
       };
     },
     setupSortOrder: function setupSortOrder() {
       var _this4 = this;
 
       var field = this.fields.find(function (field) {
-        return field.sortField === _this4.defaultSortBy;
+        return field.sortField === _this4.defaultSortBy.field;
       });
-      this.sortData(field);
+      this.sortData(field, this.defaultSortBy.direction);
     },
     isObject: function isObject(unknown) {
-      return (typeof unknown === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(unknown)) === "object" && unknown !== null;
+      return (typeof unknown === "undefined" ? "undefined" : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(unknown)) === "object" && unknown !== null;
     },
     isPromiseObject: function isPromiseObject(unknown) {
       return this.isObject(unknown) && typeof unknown.then === "function";
     },
     onRowClass: function onRowClass(dataItem, index) {
-      if (typeof this.rowClass === 'function') {
+      if (typeof this.rowClass === "function") {
         return this.rowClass(dataItem, index);
       }
 
       return this.rowClass;
     },
     onRowClicked: function onRowClicked(dataItem, dataIndex, event) {
-      this.fireEvent('row-clicked', { data: dataItem, index: dataIndex, event: event });
+      this.fireEvent("row-clicked", {
+        data: dataItem,
+        index: dataIndex,
+        event: event
+      });
+      return true;
+    },
+    onContextMenu: function onContextMenu(dataItem, dataIndex, event) {
+      this.fireEvent("row-contextmenu", {
+        data: dataItem,
+        index: dataIndex,
+        event: event
+      });
       return true;
     },
     onCellClicked: function onCellClicked(dataItem, dataIndex, field, event) {
-      this.fireEvent('cell-clicked', { data: dataItem, index: dataIndex, field: field, event: event });
+      this.fireEvent("cell-clicked", {
+        data: dataItem,
+        index: dataIndex,
+        field: field,
+        event: event
+      });
     },
     onFieldEvent: function onFieldEvent(type, payload) {
-      this.fireEvent('field-event', type, payload, this);
+      this.fireEvent("field-event", type, payload, this);
     },
     onHeaderEvent: function onHeaderEvent(type, payload) {
-      this.fireEvent('header-event', type, payload, this);
+      this.fireEvent("header-event", type, payload, this);
     },
     onCheckboxToggled: function onCheckboxToggled(isChecked, fieldName, dataItem) {
       var idColumn = this.trackBy;
@@ -2573,7 +2601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.unselectId(key);
       }
 
-      this.fireEvent('checkbox-toggled', isChecked, fieldName);
+      this.fireEvent("checkbox-toggled", isChecked, fieldName);
     },
     onCheckboxToggledAll: function onCheckboxToggledAll(isChecked) {
       var _this5 = this;
@@ -2590,12 +2618,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       }
 
-      this.fireEvent('checkbox-toggled-all', isChecked);
+      this.fireEvent("checkbox-toggled-all", isChecked);
     },
     changePage: function changePage(page) {
-      if (page === 'prev') {
+      if (page === "prev") {
         this.gotoPreviousPage();
-      } else if (page === 'next') {
+      } else if (page === "next") {
         this.gotoNextPage();
       } else {
         this.gotoPage(page);
@@ -2611,7 +2639,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     resetData: function resetData() {
       this.tableData = null;
       this.tablePagination = null;
-      this.fireEvent('data-reset');
+      this.fireEvent("data-reset");
     }
   }
 });
@@ -2628,7 +2656,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'vuetable-col-group',
+  name: "vuetable-col-group",
 
   props: {
     isHeader: {
@@ -2648,7 +2676,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var fieldName = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(field.name) === "object" && field.name !== null ? field.name.name : field.name;
       fieldName = fieldName.replace(this.fieldPrefix, "");
 
-      return ['vuetable-col-' + fieldName, field.titleClass];
+      return ["vuetable-col-" + fieldName, field.titleClass];
     }
   }
 });
@@ -2662,14 +2690,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'vuetable-th-gutter',
+  name: "vuetable-th-gutter",
 
   computed: {
     vuetable: function vuetable() {
       return this.$parent;
     }
   }
-
 });
 
 /***/ }),
@@ -2685,7 +2712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'vuetable-field-checkbox',
+  name: "vuetable-field-checkbox",
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__VuetableFieldCheckboxMixin_vue___default.a]
 });
@@ -2720,7 +2747,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (!this.vuetable.tableData) return;
 
       var idColumn = this.vuetable.trackBy;
-      var checkbox = this.$el.querySelector('input[type=checkbox]');
+      var checkbox = this.$el.querySelector("input[type=checkbox]");
       var selected = this.vuetable.tableData.filter(function (item) {
         return _this.vuetable.isSelectedRow(item[idColumn]);
       });
@@ -2752,7 +2779,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'vuetable-field-handle',
+  name: "vuetable-field-handle",
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__VuetableFieldMixin_vue___default.a],
 
@@ -2788,7 +2815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     title: {
       type: String,
-      default: ''
+      default: ""
     },
     vuetable: {
       type: Object,
@@ -2810,7 +2837,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'vuetable-field-sequence',
+  name: "vuetable-field-sequence",
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__VuetableFieldMixin_vue___default.a],
 
@@ -2855,14 +2882,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     pageText: {
       type: String,
       default: function _default() {
-        return 'Page';
+        return "Page";
       }
     }
   },
   created: function created() {
     var _this = this;
 
-    this.$on('vuetable:pagination-data', function (tablePagination) {
+    this.$on("vuetable:pagination-data", function (tablePagination) {
       _this.setPaginationData(tablePagination);
     });
   }
@@ -2914,7 +2941,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     noDataTemplate: {
       type: String,
       default: function _default() {
-        return 'No relevant data';
+        return "No relevant data";
       }
     }
   },
@@ -2930,7 +2957,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return this.noDataTemplate;
       }
 
-      return this.infoTemplate.replace('{from}', this.tablePagination.from || 0).replace('{to}', this.tablePagination.to || 0).replace('{total}', this.tablePagination.total || 0);
+      return this.infoTemplate.replace("{from}", this.tablePagination.from || 0).replace("{to}", this.tablePagination.to || 0).replace("{total}", this.tablePagination.total || 0);
     }
   },
   created: function created() {
@@ -3026,7 +3053,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$_css = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, __WEBPACK_IMPORTED_MODULE_1__VuetableCssSemanticUI_js__["a" /* default */].pagination, this.css);
     },
     loadPage: function loadPage(page) {
-      this.$emit('vuetable-pagination:change-page', page);
+      this.$emit("vuetable-pagination:change-page", page);
     },
     isCurrentPage: function isCurrentPage(page) {
       return page === this.tablePagination.current_page;
@@ -3063,9 +3090,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'vuetable-field-checkbox': __WEBPACK_IMPORTED_MODULE_0__VuetableFieldCheckbox___default.a,
-    'vuetable-field-handle': __WEBPACK_IMPORTED_MODULE_1__VuetableFieldHandle___default.a,
-    'vuetable-field-sequence': __WEBPACK_IMPORTED_MODULE_2__VuetableFieldSequence___default.a,
+    "vuetable-field-checkbox": __WEBPACK_IMPORTED_MODULE_0__VuetableFieldCheckbox___default.a,
+    "vuetable-field-handle": __WEBPACK_IMPORTED_MODULE_1__VuetableFieldHandle___default.a,
+    "vuetable-field-sequence": __WEBPACK_IMPORTED_MODULE_2__VuetableFieldSequence___default.a,
     VuetableColGutter: __WEBPACK_IMPORTED_MODULE_3__VuetableColGutter___default.a
   },
 
@@ -3083,21 +3110,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     stripPrefix: function stripPrefix(name) {
-      return name.replace(this.vuetable.fieldPrefix, '');
+      return name.replace(this.vuetable.fieldPrefix, "");
     },
     headerClass: function headerClass(base, field) {
-      return [base + '-' + this.toSnakeCase(field.name), field.titleClass || '', this.sortClass(field), { 'sortable': this.vuetable.isSortable(field) }];
+      return [base + "-" + this.toSnakeCase(field.name), field.titleClass || "", this.sortClass(field), { sortable: this.vuetable.isSortable(field) }];
     },
     toSnakeCase: function toSnakeCase(str) {
-      return typeof str === 'string' && str.replace(/([A-Z])/g, function (chr) {
+      return typeof str === "string" && str.replace(/([A-Z])/g, function (chr) {
         return "_" + chr.toLowerCase();
-      }).replace(' ', '_').replace('.', '_');
+      }).replace(" ", "_").replace(".", "_");
     },
     sortClass: function sortClass(field) {
-      var cls = '';
+      var cls = "";
 
       if (this.currentSortOrder(field)) {
-        cls = this.sortOrder.direction == 'asc' ? this.css.ascendingClass : this.css.descendingClass;
+        cls = this.sortOrder.direction == "asc" ? this.css.ascendingClass : this.css.descendingClass;
       }
 
       return cls;
@@ -3106,13 +3133,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var cls = this.css.sortableIcon;
 
       if (this.currentSortOrder(field)) {
-        cls = this.sortOrder.direction === 'asc' ? this.css.ascendingIcon : this.css.descendingIcon;
+        cls = this.sortOrder.direction === "asc" ? this.css.ascendingIcon : this.css.descendingIcon;
       }
 
       return cls;
     },
     hasSortableIcon: function hasSortableIcon(field) {
-      return this.vuetable.isSortable(field) && this.css.sortableIcon != '';
+      return this.vuetable.isSortable(field) && this.css.sortableIcon != "";
     },
     currentSortOrder: function currentSortOrder(field) {
       if (!this.vuetable.isSortable(field)) {
@@ -3125,15 +3152,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var title = this.getTitle(field);
 
       if (title.length > 0 && this.currentSortOrder(field) || this.hasSortableIcon(field)) {
-        return title + ' ' + ('<i class="material-icons">' + this.sortIcon(field) + '</i>');
+        return title + " " + ("<i class=\"material-icons\">" + this.sortIcon(field) + "</i>");
       }
 
       return title;
     },
     getTitle: function getTitle(field) {
-      if (typeof field.title === 'function') return field.title();
+      if (typeof field.title === "function") return field.title();
 
-      return typeof field.title === 'undefined' ? field.name.replace('.', ' ') : field.title;
+      return typeof field.title === "undefined" ? field.name.replace(".", " ") : field.title;
     }
   }
 });
@@ -3206,7 +3233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var rootVariable = (typeof self === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(self)) === 'object' && self.self === self && self || (typeof global === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(global)) === 'object' && global || this;
+var rootVariable = (typeof self === "undefined" ? "undefined" : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(self)) === "object" && self.self === self && self || (typeof global === "undefined" ? "undefined" : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(global)) === "object" && global || this;
 if (!rootVariable.Promise) {
   rootVariable.Promise = __WEBPACK_IMPORTED_MODULE_14_promise_polyfill___default.a;
 }
@@ -4100,7 +4127,7 @@ exports = module.exports = __webpack_require__(19)(false);
 
 
 // module
-exports.push([module.i, "\n[v-cloak] {\n  display: none;\n}\ntable.vuetable.fixed-header {\n  table-layout: fixed;\n}\n.vuetable th.sortable:hover {\n  color: #2185d0;\n  cursor: pointer;\n}\n.vuetable-head-wrapper {\n  overflow-x: hidden;\n}\n.vuetable-head-wrapper table.vuetable {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vuetable-body-wrapper.fixed-header {\n  position:relative;\n  overflow-y:auto;\n}\n.vuetable-body-wrapper table.vuetable.fixed-header {\n  border-top:none !important;\n  margin-top:0 !important;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vuetable-empty-result {\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n[v-cloak] {\n  display: none;\n}\ntable.vuetable.fixed-header {\n  table-layout: fixed;\n}\n.vuetable th.sortable:hover {\n  color: #2185d0;\n  cursor: pointer;\n}\n.vuetable-head-wrapper {\n  overflow-x: hidden;\n}\n.vuetable-head-wrapper table.vuetable {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vuetable-body-wrapper.fixed-header {\n  position: relative;\n  overflow-y: auto;\n}\n.vuetable-body-wrapper table.vuetable.fixed-header {\n  border-top: none !important;\n  margin-top: 0 !important;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vuetable-empty-result {\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -10809,7 +10836,7 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/draftman/Localhost/Bio2Game/Bio2Game-3.0/vuetable-2/src/components/VuetableColGroup.vue"
+Component.options.__file = "/home/draftman/Localhost/Bio2Game/vuetable-2/src/components/VuetableColGroup.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetableColGroup.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -10972,7 +10999,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.tableHeight
     })
   }, [_c('table', {
-    class: ['vuetable', _vm.isFixedHeader ? 'fixed-header' : '', _vm.$_css.tableClass, _vm.$_css.tableBodyClass]
+    class: [
+      'vuetable',
+      _vm.isFixedHeader ? 'fixed-header' : '',
+      _vm.$_css.tableClass,
+      _vm.$_css.tableBodyClass ]
   }, [_c('vuetable-col-group'), _vm._v(" "), (!_vm.isFixedHeader) ? _c('thead', [_vm._t("tableHeader", [_vm._l((_vm.headerRows), function(header, headerIndex) {
     return [_c(header, {
       key: headerIndex,
@@ -11008,6 +11039,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "click": function($event) {
           _vm.onRowClicked(item, itemIndex, $event)
+        },
+        "contextmenu": function($event) {
+          _vm.onContextMenu(item, itemIndex, $event)
         }
       }
     }, [_vm._l((_vm.tableFields), function(field, fieldIndex) {
@@ -11094,7 +11128,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     class: _vm.$_css.wrapperClass
   }, [_c('a', {
-    class: ['btn-nav', _vm.$_css.linkClass, _vm.isOnFirstPage ? _vm.$_css.disabledClass : ''],
+    class: [
+      'btn-nav',
+      _vm.$_css.linkClass,
+      _vm.isOnFirstPage ? _vm.$_css.disabledClass : '' ],
     on: {
       "click": function($event) {
         _vm.loadPage(_vm.firstPage)
@@ -11103,7 +11140,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.$_css.icons.first != '') ? _c('i', {
     class: [_vm.$_css.icons.first]
   }) : _c('span', [_vm._v("«")])]), _vm._v(" "), _c('a', {
-    class: ['btn-nav', _vm.$_css.linkClass, _vm.isOnFirstPage ? _vm.$_css.disabledClass : ''],
+    class: [
+      'btn-nav',
+      _vm.$_css.linkClass,
+      _vm.isOnFirstPage ? _vm.$_css.disabledClass : '' ],
     on: {
       "click": function($event) {
         _vm.loadPage('prev')
@@ -11114,7 +11154,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _c('span', [_vm._v(" ‹")])]), _vm._v(" "), (_vm.notEnoughPages) ? [_vm._l((_vm.totalPage), function(n, i) {
     return [_c('a', {
       key: i,
-      class: [_vm.$_css.pageClass, _vm.isCurrentPage(i + _vm.firstPage) ? _vm.$_css.activeClass : ''],
+      class: [
+        _vm.$_css.pageClass,
+        _vm.isCurrentPage(i + _vm.firstPage) ? _vm.$_css.activeClass : '' ],
       domProps: {
         "innerHTML": _vm._s(n)
       },
@@ -11127,7 +11169,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })] : [_vm._l((_vm.windowSize), function(n, i) {
     return [_c('a', {
       key: i,
-      class: [_vm.$_css.pageClass, _vm.isCurrentPage(_vm.windowStart + i + _vm.firstPage - 1) ? _vm.$_css.activeClass : ''],
+      class: [
+        _vm.$_css.pageClass,
+        _vm.isCurrentPage(_vm.windowStart + i + _vm.firstPage - 1) ?
+        _vm.$_css.activeClass :
+        '' ],
       domProps: {
         "innerHTML": _vm._s(_vm.windowStart + n - 1)
       },
@@ -11138,7 +11184,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]
   })], _vm._v(" "), _c('a', {
-    class: ['btn-nav', _vm.$_css.linkClass, _vm.isOnLastPage ? _vm.$_css.disabledClass : ''],
+    class: [
+      'btn-nav',
+      _vm.$_css.linkClass,
+      _vm.isOnLastPage ? _vm.$_css.disabledClass : '' ],
     on: {
       "click": function($event) {
         _vm.loadPage('next')
@@ -11147,7 +11196,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.$_css.icons.next != '') ? _c('i', {
     class: [_vm.$_css.icons.next]
   }) : _c('span', [_vm._v("› ")])]), _vm._v(" "), _c('a', {
-    class: ['btn-nav', _vm.$_css.linkClass, _vm.isOnLastPage ? _vm.$_css.disabledClass : ''],
+    class: [
+      'btn-nav',
+      _vm.$_css.linkClass,
+      _vm.isOnLastPage ? _vm.$_css.disabledClass : '' ],
     on: {
       "click": function($event) {
         _vm.loadPage(_vm.lastPage)

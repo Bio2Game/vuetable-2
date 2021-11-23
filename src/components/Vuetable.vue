@@ -58,6 +58,7 @@
             :key="itemIndex"
             :class="onRowClass(item, itemIndex)"
             @click="onRowClicked(item, itemIndex, $event)"
+            @contextmenu="onContextMenu(item, itemIndex, $event)"
           >
             <template v-for="(field, fieldIndex) in tableFields">
               <template v-if="field.visible">
@@ -201,6 +202,10 @@ export default {
       },
     },
     draggable: {
+      type: Boolean,
+      default: false,
+    },
+    contextmenu: {
       type: Boolean,
       default: false,
     },
@@ -702,6 +707,15 @@ export default {
 
     onRowClicked(dataItem, dataIndex, event) {
       this.fireEvent("row-clicked", {
+        data: dataItem,
+        index: dataIndex,
+        event: event,
+      });
+      return true;
+    },
+
+    onContextMenu(dataItem, dataIndex, event) {
+      this.fireEvent("row-contextmenu", {
         data: dataItem,
         index: dataIndex,
         event: event,
